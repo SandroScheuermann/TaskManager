@@ -1,6 +1,6 @@
-﻿using TaskManager.API.Requests.ProjectRequests;
+﻿using TaskManager.Application.Requests.ProjectRequests;
+using TaskManager.Application.Services.ProjectService;
 using TaskManager.Domain.Entities;
-using TaskManager.Domain.Services.ProjectService;
 
 namespace TaskManager.API.Controllers
 {
@@ -16,12 +16,8 @@ namespace TaskManager.API.Controllers
         }
 
         private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest, IProjectService ProjectService)
-        {
-            var project = new Project { Id = "" , UserId = ""};
-
-            //validar
-
-            await ProjectService.CreateProjectAsync(project);
+        {  
+            await ProjectService.CreateProjectAsync(null);
 
             return Results.Ok();
         }
@@ -44,10 +40,8 @@ namespace TaskManager.API.Controllers
             return deleteResponse.DeletedCount > 0 ? Results.Ok(deleteResponse.DeletedCount) : Results.NotFound(id);
         }
         private static async Task<IResult> UpdateProject(UpdateProjectRequest updateProjectRequest, IProjectService ProjectService)
-        {
-            var updatedProject = new Project { Id = updateProjectRequest.Id, UserId = updateProjectRequest.Id };
-
-            var updateResponse = await ProjectService.UpdateProjectAsync(updatedProject);
+        {  
+            var updateResponse = await ProjectService.UpdateProjectAsync(null);
 
             return updateResponse.MatchedCount > 0 ? Results.Ok(updateResponse.UpsertedId) : Results.NotFound();
         }

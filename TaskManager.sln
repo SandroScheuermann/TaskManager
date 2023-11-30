@@ -3,21 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.API", "TaskManager.API\TaskManager.API.csproj", "{FE03A08D-2030-4D8C-925C-45A4821BDC2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.API", "TaskManager.API\TaskManager.API.csproj", "{FE03A08D-2030-4D8C-925C-45A4821BDC2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Distribution", "1 - Distribution", "{57653EF3-0ED6-4C12-892E-2F45EE7FAB26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{F1C3EFE1-A28C-4CCB-AC88-869532E87ED3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{F1C3EFE1-A28C-4CCB-AC88-869532E87ED3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{0FFB767E-ACB8-4DDC-A8F0-A0F56EB9EC81}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{0FFB767E-ACB8-4DDC-A8F0-A0F56EB9EC81}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{966902AF-B7B4-45DD-A13A-C9A6A96E7E19}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Tests", "5 - Tests", "{966902AF-B7B4-45DD-A13A-C9A6A96E7E19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Domain", "TaskManager.Domain\TaskManager.Domain.csproj", "{E522F857-D996-4948-9745-6C7A01425167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Domain", "TaskManager.Domain\TaskManager.Domain.csproj", "{E522F857-D996-4948-9745-6C7A01425167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManger.Infra", "TaskManger.Infra\TaskManger.Infra.csproj", "{8FC583FF-B516-497D-B550-521DF97637DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManger.Infra", "TaskManger.Infra\TaskManger.Infra.csproj", "{8FC583FF-B516-497D-B550-521DF97637DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Test", "TaskManager.Test\TaskManager.Test.csproj", "{0F4417A2-375B-4BDF-A91B-86AA77798255}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Test", "TaskManager.Test\TaskManager.Test.csproj", "{0F4417A2-375B-4BDF-A91B-86AA77798255}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{7449D020-1B44-4094-8C7E-CD7CFE64B583}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Application", "TaskManager.Application\TaskManager.Application.csproj", "{84EC0570-3199-4D9C-B843-34EEE60CC96A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{0F4417A2-375B-4BDF-A91B-86AA77798255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4417A2-375B-4BDF-A91B-86AA77798255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4417A2-375B-4BDF-A91B-86AA77798255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EC0570-3199-4D9C-B843-34EEE60CC96A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EC0570-3199-4D9C-B843-34EEE60CC96A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EC0570-3199-4D9C-B843-34EEE60CC96A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EC0570-3199-4D9C-B843-34EEE60CC96A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 		{E522F857-D996-4948-9745-6C7A01425167} = {F1C3EFE1-A28C-4CCB-AC88-869532E87ED3}
 		{8FC583FF-B516-497D-B550-521DF97637DB} = {0FFB767E-ACB8-4DDC-A8F0-A0F56EB9EC81}
 		{0F4417A2-375B-4BDF-A91B-86AA77798255} = {966902AF-B7B4-45DD-A13A-C9A6A96E7E19}
+		{84EC0570-3199-4D9C-B843-34EEE60CC96A} = {7449D020-1B44-4094-8C7E-CD7CFE64B583}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE7DEA69-DB0C-4892-B855-9841D48D629A}

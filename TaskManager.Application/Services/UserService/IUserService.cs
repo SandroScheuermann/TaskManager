@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using TaskManager.Domain.Entities;
 
-namespace TaskManager.Domain.Services.UserService
+namespace TaskManager.Application.Services.UserService
 {
     public interface IUserService
     {

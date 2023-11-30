@@ -2,7 +2,7 @@
 using TaskManager.Domain.Entities;
 using TaskManager.Domain.Repositories;
 
-namespace TaskManager.Domain.Services.ProjectService
+namespace TaskManager.Application.Services.ProjectService
 {
     public class ProjectService(IProjectRepository projectRepository) : IProjectService
     {
@@ -33,6 +33,11 @@ namespace TaskManager.Domain.Services.ProjectService
         public async Task<ReplaceOneResult> UpdateProjectAsync(Project project)
         {
             return await ProjectRepository.UpdateAsync(project);
+        }
+
+        public async Task<bool> CheckIfProjectExists(string id)
+        {
+            return await ProjectRepository.CheckIfExistsById(id);
         }
     }
 }

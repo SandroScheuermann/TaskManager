@@ -1,6 +1,6 @@
-﻿using TaskManager.API.Requests.UserRequests;
-using TaskManager.Domain.Entities;
-using TaskManager.Domain.Services.UserService;
+﻿
+
+using TaskManager.Application.Requests.UserRequests;
 
 namespace TaskManager.API.Controllers
 {

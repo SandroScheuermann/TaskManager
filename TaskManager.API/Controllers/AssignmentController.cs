@@ -1,7 +1,7 @@
-﻿using TaskManager.API.Requests.AssignmentRequests;
-using TaskManager.Domain.Entities;
-using TaskManager.Domain.Enums;
-using TaskManager.Domain.Services.AssignmentService;
+﻿using TaskManager.Application.Requests.AssignmentRequests;
+using TaskManager.Application.Services.AssignmentService;
+using TaskManager.Application.Services.ProjectService;
+using TaskManager.Application.Validation.Errors;
 
 namespace TaskManager.API.Controllers
 {
@@ -18,20 +18,16 @@ namespace TaskManager.API.Controllers
 
         private static async Task<IResult> InsertAssignment(InsertAssignmentRequest insertAssignmentRequest, IAssignmentService AssignmentService)
         {
-            var assignment = new Assignment 
-            {
-                Id = "", 
-                Title = insertAssignmentRequest.AssignmentTitle, 
-                Description = "",
-                ExpireDate = DateTime.Now, 
-                Status = AssignmentStatus.Done 
-            };
+            var result = await AssignmentService.CreateAssignmentAsync(insertAssignmentRequest);
 
-            //validar
-
-            await AssignmentService.CreateAssignmentAsync(assignment);
-
-            return Results.Ok();
+            return result.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    RequestValidationError => Results.BadRequest(error.Message),
+                    ProjectDoesntExistError => Results.BadRequest(error.Message),
+                    _ => Results.Problem()
+                });  
         }
         private static async Task<IResult> GetAssignments(IAssignmentService AssignmentService)
         {
@@ -53,16 +49,16 @@ namespace TaskManager.API.Controllers
         }
         private static async Task<IResult> UpdateAssignment(UpdateAssignmentRequest updateAssignmentRequest, IAssignmentService AssignmentService)
         {
-            var updatedAssignment = new Assignment
-            {
-                Id = "",
-                Title = "",
-                Description = "",
-                ExpireDate = DateTime.Now,
-                Status = AssignmentStatus.Done
-            };
+            //var updatedAssignment = new Assignment
+            //{
+            //    Id = "",
+            //    Title = "",
+            //    Description = "",
+            //    ExpireDate = DateTime.Now,
+            //    Status = AssignmentStatus.Done
+            //};
 
-            var updateResponse = await AssignmentService.UpdateAssignmentAsync(updatedAssignment);
+            var updateResponse = await AssignmentService.UpdateAssignmentAsync(null);
 
             return updateResponse.MatchedCount > 0 ? Results.Ok(updateResponse.UpsertedId) : Results.NotFound();
         }

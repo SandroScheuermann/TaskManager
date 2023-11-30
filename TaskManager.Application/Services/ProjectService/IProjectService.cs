@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using TaskManager.Domain.Entities;
 
-namespace TaskManager.Domain.Services.ProjectService
+namespace TaskManager.Application.Services.ProjectService
 {
     public interface IProjectService
     {
@@ -10,5 +10,6 @@ namespace TaskManager.Domain.Services.ProjectService
         Task<IEnumerable<Project>> GetAllProjectsAsync();
         Task<ReplaceOneResult> UpdateProjectAsync(Project user);
         Task<DeleteResult> DeleteProjectAsync(string id); 
+        Task<bool> CheckIfProjectExists(string id);
     }
 }

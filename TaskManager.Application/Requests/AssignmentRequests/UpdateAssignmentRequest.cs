@@ -1,4 +1,4 @@
-﻿namespace TaskManager.API.Requests.AssignmentRequests
+﻿namespace TaskManager.Application.Requests.AssignmentRequests
 {
     public class UpdateAssignmentRequest
     {

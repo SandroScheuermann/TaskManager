@@ -2,7 +2,7 @@
 using TaskManager.Domain.Entities;
 using TaskManager.Domain.Repositories;
 
-namespace TaskManager.Domain.Services.UserService
+namespace TaskManager.Application.Services.UserService
 {
     public class UserService(IUserRepository userRepository) : IUserService
     {

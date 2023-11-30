@@ -1,8 +1,4 @@
-﻿using TaskManager.Domain.Repositories;
-using TaskManager.Domain.Services.AssignmentService;
-using TaskManger.Infra.DataAccess;
-
-namespace TaskManager.API.DependencyInjection
+﻿namespace TaskManager.API.DependencyInjection
 {
     public static class GeneralDependencies
     {

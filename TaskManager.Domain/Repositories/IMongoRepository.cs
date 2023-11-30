@@ -15,5 +15,6 @@ namespace TaskManager.Domain.Repositories
 
         public Task<ReplaceOneResult> UpdateAsync(T item);
 
+        public Task<bool> CheckIfExistsById(string id);
     }
 }

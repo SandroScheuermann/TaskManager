@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using TaskManager.Domain.Entities.ConfigurationModels;
+using TaskManager.Application.ConfigurationModels;
 using TaskManager.Domain.Entities.Shared;
 using TaskManager.Domain.Repositories;
 
@@ -40,6 +40,13 @@ namespace Muscler.Infra.DataAccess.Shared
             var getByIdFilter = Builders<T>.Filter.Eq(entity => entity.Id, id);
 
             return await Collection.Find(getByIdFilter).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> CheckIfExistsById(string id)
+        {
+            var getByIdFilter = Builders<T>.Filter.Eq(entity => entity.Id, id);
+
+            return await Collection.CountDocumentsAsync(getByIdFilter) > 0;
         }
 
         public async Task<ReplaceOneResult> UpdateAsync(T item)

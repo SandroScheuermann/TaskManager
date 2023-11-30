@@ -1,4 +1,4 @@
-﻿namespace TaskManager.API.Requests.ProjectRequests
+﻿namespace TaskManager.Application.Requests.ProjectRequests
 {
     public class UpdateProjectRequest
     {

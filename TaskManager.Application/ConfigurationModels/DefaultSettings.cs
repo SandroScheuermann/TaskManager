@@ -1,4 +1,4 @@
-﻿namespace TaskManager.Domain.Entities.ConfigurationModels
+﻿namespace TaskManager.Application.ConfigurationModels
 {
     public class DefaultSettings
     {
