@@ -1,6 +1,7 @@
 ﻿
 
 using TaskManager.Application.Requests.UserRequests;
+using TaskManager.Application.Services.UserService;
 
 namespace TaskManager.API.Controllers
 {

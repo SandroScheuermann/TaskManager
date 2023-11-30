@@ -1,6 +1,5 @@
 ﻿using TaskManager.Application.Requests.AssignmentRequests;
-using TaskManager.Application.Services.AssignmentService;
-using TaskManager.Application.Services.ProjectService;
+using TaskManager.Application.Services.AssignmentServices;
 using TaskManager.Application.Validation.Errors;
 
 namespace TaskManager.API.Controllers

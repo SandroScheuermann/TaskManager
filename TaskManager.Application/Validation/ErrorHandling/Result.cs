@@ -39,9 +39,22 @@ namespace TaskManager.Application.Validation.ErrorHandling
             }
 
             throw new UnreachableException();
-        } 
-    }
+        }
 
+        public Result<TNewSuccess, TFailure> Bind<TNewSuccess>(Func<TSuccess, Result<TNewSuccess, TFailure>> func)
+        {
+            if (Value is not null)
+            {
+                return func(Value);
+            }
+            else if (Error is not null)
+            {
+                return Error;
+            }
+
+            throw new UnreachableException();
+        }
+    }
     public abstract class Error(string message)
     {
         public string? Message { get; set; } = message;

@@ -3,7 +3,7 @@ using TaskManager.Application.Requests.AssignmentRequests;
 using TaskManager.Application.Validation.ErrorHandling;
 using TaskManager.Domain.Entities;
 
-namespace TaskManager.Application.Services.AssignmentService
+namespace TaskManager.Application.Services.AssignmentServicess
 {
     public interface IAssignmentService
     {

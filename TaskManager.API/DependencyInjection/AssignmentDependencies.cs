@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using TaskManager.Application.Services.AssignmentService;
+using TaskManager.Application.Services.AssignmentServices;
 using TaskManager.Application.Validation.AssignmentValidations;
 using TaskManager.Domain.Repositories;
 using TaskManger.Infra.DataAccess;
