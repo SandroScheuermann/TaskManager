@@ -6,7 +6,7 @@ using TaskManager.Domain.Repositories;
 
 namespace TaskManger.Infra.DataAccess
 {
-    public class UserRepository(IOptions<DefaultSettings> settings) : MongoRepository<User>(settings), IUserRepository
+    public class ProjectRepository(IOptions<DefaultSettings> settings) : MongoRepository<Project>(settings), IProjectRepository
     {
     }
 }
