@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Assignment\" />
+    <Folder Include="Services\Project\" />
+  </ItemGroup>
+
 </Project>
