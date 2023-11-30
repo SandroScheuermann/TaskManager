@@ -5,8 +5,8 @@ namespace TaskManager.Domain.Entities
 {
     public class Project : MongoEntity
     {  
-        public required List<ObjectId> Assignments { get; set; }
+        public List<string> Assignments { get; set; } = [];
 
-        public required ObjectId UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }
