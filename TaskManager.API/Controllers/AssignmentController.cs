@@ -1,7 +1,7 @@
-﻿using TaskManager.Application.Requests.AssignmentRequests;
-using TaskManager.Application.Services.AssignmentServices;
-using TaskManager.Application.Validation.Errors;
-using TaskManager.Domain.Entities;
+﻿using MediatR;
+using TaskManager.Application.Commands.Assignments;
+using TaskManager.Application.Requests.Assignments;
+using TaskManager.Application.ResultHandling.Errors;
 
 namespace TaskManager.API.Controllers
 {
@@ -15,54 +15,87 @@ namespace TaskManager.API.Controllers
             group.MapGet("/", GetAssignments);
             group.MapGet("/{id}", GetAssignmentById);
             group.MapDelete("/{id}", DeleteAssignment);
-            group.MapPut("/", UpdateAssignment);
+            group.MapPatch("/", UpdateAssignment);
         }
 
-        private static async Task<IResult> InsertAssignment(CreateAssignmentRequest insertAssignmentRequest, IAssignmentService AssignmentService)
+        private static async Task<IResult> InsertAssignment(CreateAssignmentRequest insertAssignmentRequest, IMediator Mediator)
         {
-            var result = await AssignmentService.CreateAssignmentAsync(insertAssignmentRequest);
+            var insertCommand = new InsertAssignmentCommand { Request = insertAssignmentRequest };
 
-            return result.Match(
+            var response = await Mediator.Send(insertCommand);
+
+            return response.Match(
                 success => Results.Ok(success),
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
-                    ProjectDoesntExistError => Results.BadRequest(error.Message),
-                    _ => Results.Problem()
+                    ProjectDoesntExistError => Results.NotFound(error.Message),
+                    _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> GetAssignments(IAssignmentService AssignmentService)
+        private static async Task<IResult> GetAssignments(IMediator Mediator)
         {
-            var assignmentsReturned = await AssignmentService.GetAllAssignmentsAsync();
+            var getCommand = new GetAssignmentsCommand();
 
-            return Results.Ok(assignmentsReturned);
+            var response = await Mediator.Send(getCommand);
+
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    _ => Results.Problem(error.Message)
+                });
         }
-        private static async Task<IResult> GetAssignmentById(string id, IAssignmentService AssignmentService)
+        private static async Task<IResult> GetAssignmentById(string id, IMediator Mediator)
         {
-            var assignmentReturned = await AssignmentService.GetAssignmentByIdAsync(id);
+            var getByIdRequest = new GetAssignmentByIdRequest { Id = id };
 
-            return Results.Ok(assignmentReturned);
+            var getByIdCommand = new GetAssignmentByIdCommand { Request = getByIdRequest };
+
+            var response = await Mediator.Send(getByIdCommand);
+
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    RequestValidationError => Results.Problem(error.Message),
+                    AssignmentDoesntExistError => Results.NotFound(),
+                    _ => Results.Problem(error.Message)
+                });
         }
-        private static async Task<IResult> DeleteAssignment(string id, IAssignmentService AssignmentService)
+        private static async Task<IResult> DeleteAssignment(string id, IMediator Mediator)
         {
-            var deleteResponse = await AssignmentService.DeleteAssignmentAsync(id);
+            var deleteRequest = new DeleteAssignmentRequest { Id = id };
 
-            return deleteResponse.DeletedCount > 0 ? Results.Ok(deleteResponse.DeletedCount) : Results.NotFound(id);
+            var deleteCommand = new DeleteAssignmentCommand { Request = deleteRequest };
+
+            var response = await Mediator.Send(deleteCommand);
+
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    RequestValidationError => Results.BadRequest(error.Message),
+                    UnknownError => Results.Problem(error.Message),
+                    AssignmentDoesntExistError => Results.NotFound(),
+                    _ => Results.Problem(error.Message)
+                });
         }
-        private static async Task<IResult> UpdateAssignment(UpdateAssignmentRequest updateAssignmentRequest, IAssignmentService AssignmentService)
+        private static async Task<IResult> UpdateAssignment(UpdateAssignmentRequest updateAssignmentRequest, IMediator Mediator)
         {
-            //var updatedAssignment = new Assignment
-            //{
-            //    Id = "",
-            //    Title = "",
-            //    Description = "",
-            //    ExpireDate = DateTime.Now,
-            //    Status = AssignmentStatus.Done
-            //};
+            var updateCommand = new UpdateAssignmentCommand { Request = updateAssignmentRequest };
 
-            var updateResponse = await AssignmentService.UpdateAssignmentAsync(null);
+            var response = await Mediator.Send(updateCommand);
 
-            return updateResponse.MatchedCount > 0 ? Results.Ok(updateResponse.UpsertedId) : Results.NotFound();
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    RequestValidationError => Results.BadRequest(error.Message),
+                    UnknownError => Results.Problem(error.Message),
+                    AssignmentDoesntExistError => Results.NotFound(),
+                    _ => Results.Problem(error.Message)
+                });
         }
     }
 }

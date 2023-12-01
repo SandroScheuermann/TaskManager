@@ -1,5 +1,4 @@
 ﻿using TaskManager.Domain.Repositories;
-using TaskManager.Domain.Services.UserService;
 using TaskManger.Infra.DataAccess;
 
 namespace TaskManager.API.DependencyInjection
@@ -8,8 +7,7 @@ namespace TaskManager.API.DependencyInjection
     {
         public static void InjectUserDependencies(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IUserService, UserService>(); 
+            builder.Services.AddScoped<IUserRepository, UserRepository>(); 
         } 
     }
 }

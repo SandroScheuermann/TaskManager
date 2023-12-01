@@ -13,6 +13,8 @@ namespace TaskManager.Domain.Entities
 
         public required DateTime? ExpireDate { get; set; }
 
-        public required AssignmentStatus? Status { get; set; }
+        public required AssignmentStatusEnum? Status { get; set; }
+
+        public required AssignmentPriorityEnum? Priority { get; set; }
     }
 }

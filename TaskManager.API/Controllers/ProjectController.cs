@@ -1,7 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using TaskManager.Application.Requests.ProjectRequests;
-using TaskManager.Application.Services.ProjectService;
-using TaskManager.Domain.Entities;
+﻿using TaskManager.Application.Requests.Projects;
 
 namespace TaskManager.API.Controllers
 {
@@ -18,35 +15,29 @@ namespace TaskManager.API.Controllers
             group.MapPut("/", UpdateProject);
         }
 
-        private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest, IProjectService ProjectService)
+        private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest)
         {
-            await ProjectService.CreateProjectAsync(null);
 
             return Results.Ok();
         }
-        private static async Task<IResult> GetProjects(IProjectService ProjectService)
+        private static async Task<IResult> GetProjects()
         {
-            var projectsReturned = await ProjectService.GetAllProjectsAsync();
 
-            return Results.Ok(projectsReturned);
+            return Results.Ok();
         }
-        private static async Task<IResult> GetProjectById(string id, IProjectService ProjectService)
+        private static async Task<IResult> GetProjectById(string id)
         {
-            var projectReturned = await ProjectService.GetProjectByIdAsync(id);
 
-            return Results.Ok(projectReturned);
+            return Results.Ok();
         }
-        private static async Task<IResult> DeleteProject(string id, IProjectService ProjectService)
+        private static async Task<IResult> DeleteProject(string id)
         {
-            var deleteResponse = await ProjectService.DeleteProjectAsync(id);
 
-            return deleteResponse.DeletedCount > 0 ? Results.Ok(deleteResponse.DeletedCount) : Results.NotFound(id);
+            return Results.Ok();
         }
-        private static async Task<IResult> UpdateProject(UpdateProjectRequest updateProjectRequest, IProjectService ProjectService)
+        private static async Task<IResult> UpdateProject(UpdateProjectRequest updateProjectRequest)
         {
-            var updateResponse = await ProjectService.UpdateProjectAsync(null);
-
-            return updateResponse.MatchedCount > 0 ? Results.Ok(updateResponse.UpsertedId) : Results.NotFound();
+            return Results.Ok();
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿
-
-using TaskManager.Application.Requests.UserRequests;
-using TaskManager.Application.Services.UserService;
-
-namespace TaskManager.API.Controllers
+﻿namespace TaskManager.API.Controllers
 {
     public static class UserController
     {
@@ -18,41 +13,30 @@ namespace TaskManager.API.Controllers
             group.MapPut("/", UpdateUser);
         }
 
-        private static async Task<IResult> InsertUser(InsertUserRequest insertUserRequest, IUserService UserService)
-        {
-            var user = new User { UserName = insertUserRequest.UserName, Id = "" };
-
-            //validar
-
-            await UserService.CreateUserAsync(user);
+        private static async Task<IResult> InsertUser()
+        { 
 
             return Results.Ok();
         }
-        private static async Task<IResult> GetUsers(IUserService UserService)
+        private static async Task<IResult> GetUsers()
         {
-            var usersReturned = await UserService.GetAllUsersAsync();
 
-            return Results.Ok(usersReturned);
+            return Results.Ok();
         }
-        private static async Task<IResult> GetUserById(string id, IUserService UserService)
+        private static async Task<IResult> GetUserById(string id)
         {
-            var userReturned = await UserService.GetUserByIdAsync(id);
 
-            return Results.Ok(userReturned);
+            return Results.Ok();
         }
-        private static async Task<IResult> DeleteUser(string id, IUserService UserService)
+        private static async Task<IResult> DeleteUser(string id)
         {
-            var deleteResponse = await UserService.DeleteUserAsync(id);
 
-            return deleteResponse.DeletedCount > 0 ? Results.Ok(deleteResponse.DeletedCount) : Results.NotFound(id);
+            return Results.Ok();
         }
-        private static async Task<IResult> UpdateUser(UpdateUserRequest updateUserRequest, IUserService UserService)
+        private static async Task<IResult> UpdateUser()
         {
-            var updatedUser = new User { Id = updateUserRequest.Id, UserName = updateUserRequest.UserName };
 
-            var updateResponse = await UserService.UpdateUserAsync(updatedUser);
-
-            return updateResponse.MatchedCount > 0 ? Results.Ok(updateResponse.UpsertedId) : Results.NotFound();
+            return Results.Ok();
         }
     }
 }

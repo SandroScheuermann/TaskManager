@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using TaskManager.Application.Services.AssignmentServices;
-using TaskManager.Application.Validation.AssignmentValidations;
+using TaskManager.Application.Validators.Assignments;
 using TaskManager.Domain.Repositories;
 using TaskManger.Infra.DataAccess;
 
@@ -11,9 +10,11 @@ namespace TaskManager.API.DependencyInjection
         public static void InjectAssignmentDependencies(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
-            builder.Services.AddScoped<IAssignmentService, AssignmentService>(); 
 
-            builder.Services.AddValidatorsFromAssemblyContaining<InsertAssignmentRequestValidator>(); 
+            builder.Services.AddValidatorsFromAssemblyContaining<InsertAssignmentRequestValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<UpdateAssignmentRequestValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<GetAssignmentByIdRequestValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<DeleteAssignmentRequestValidator>();
         }
     }
 }

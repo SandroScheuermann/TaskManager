@@ -1,4 +1,6 @@
-﻿namespace TaskManager.API.DependencyInjection
+﻿using Microsoft.AspNetCore.Hosting;
+
+namespace TaskManager.API.DependencyInjection
 {
     public static class GeneralDependencies
     {
@@ -6,7 +8,7 @@
         {
             builder.InjectUserDependencies();
             builder.InjectProjectDependencies();
-            builder.InjectAssignmentDependencies();
+            builder.InjectAssignmentDependencies(); 
         }
     }
 }

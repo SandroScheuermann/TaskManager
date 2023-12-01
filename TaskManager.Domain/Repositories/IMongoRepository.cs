@@ -13,7 +13,7 @@ namespace TaskManager.Domain.Repositories
 
         public Task<DeleteResult> DeleteAsync(string id);
 
-        public Task<ReplaceOneResult> UpdateAsync(T item);
+        public Task<UpdateResult> UpdateAsync(T item);
 
         public Task<bool> CheckIfExistsById(string id);
     }

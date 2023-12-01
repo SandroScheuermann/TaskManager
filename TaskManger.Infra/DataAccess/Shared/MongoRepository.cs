@@ -49,11 +49,27 @@ namespace Muscler.Infra.DataAccess.Shared
             return await Collection.CountDocumentsAsync(getByIdFilter) > 0;
         }
 
-        public async Task<ReplaceOneResult> UpdateAsync(T item)
-        {
-            var replaceFilter = Builders<T>.Filter.Eq(entity => entity.Id, item.Id);
+        public async Task<UpdateResult> UpdateAsync(T item)
+        {  
+            var filter = Builders<T>.Filter.Eq("Id", item.Id);
 
-            return await Collection.ReplaceOneAsync(replaceFilter, item);
+            var updateDefinition = new List<UpdateDefinition<T>>();
+
+            foreach (var property in typeof(T).GetProperties())
+            { 
+                if (property.Name != "Id")
+                {
+                    var value = property.GetValue(item);
+                    if (value != null) 
+                    {
+                        updateDefinition.Add(Builders<T>.Update.Set(property.Name, value));
+                    }
+                }
+            }
+
+            var update = Builders<T>.Update.Combine(updateDefinition);
+
+            return await Collection.UpdateOneAsync(filter, update);
         }
     }
 }
