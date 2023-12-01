@@ -1,4 +1,5 @@
-﻿using TaskManager.Application.Requests.ProjectRequests;
+﻿using System.Text.RegularExpressions;
+using TaskManager.Application.Requests.ProjectRequests;
 using TaskManager.Application.Services.ProjectService;
 using TaskManager.Domain.Entities;
 
@@ -8,15 +9,17 @@ namespace TaskManager.API.Controllers
     {
         public static void MapProjectControllers(this WebApplication app)
         {
-            _ = app.MapPost("/projects", InsertProject);
-            _ = app.MapGet("/projects", GetProjects);
-            _ = app.MapGet("/projects/{id}", GetProjectById);
-            _ = app.MapDelete("/projects/{id}", DeleteProject);
-            _ = app.MapPut("/projects", UpdateProject);
+            var group = app.MapGroup("/projects");
+
+            group.MapPost("/", InsertProject);
+            group.MapGet("/", GetProjects);
+            group.MapGet("/{id}", GetProjectById);
+            group.MapDelete("/{id}", DeleteProject);
+            group.MapPut("/", UpdateProject);
         }
 
         private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest, IProjectService ProjectService)
-        {  
+        {
             await ProjectService.CreateProjectAsync(null);
 
             return Results.Ok();
@@ -40,7 +43,7 @@ namespace TaskManager.API.Controllers
             return deleteResponse.DeletedCount > 0 ? Results.Ok(deleteResponse.DeletedCount) : Results.NotFound(id);
         }
         private static async Task<IResult> UpdateProject(UpdateProjectRequest updateProjectRequest, IProjectService ProjectService)
-        {  
+        {
             var updateResponse = await ProjectService.UpdateProjectAsync(null);
 
             return updateResponse.MatchedCount > 0 ? Results.Ok(updateResponse.UpsertedId) : Results.NotFound();

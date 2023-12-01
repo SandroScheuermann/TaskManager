@@ -1,6 +1,7 @@
 ﻿using TaskManager.Application.Requests.AssignmentRequests;
 using TaskManager.Application.Services.AssignmentServices;
 using TaskManager.Application.Validation.Errors;
+using TaskManager.Domain.Entities;
 
 namespace TaskManager.API.Controllers
 {
@@ -8,14 +9,16 @@ namespace TaskManager.API.Controllers
     {
         public static void MapAssignmentControllers(this WebApplication app)
         {
-            _ = app.MapPost("/assignments", InsertAssignment);
-            _ = app.MapGet("/assignments", GetAssignments);
-            _ = app.MapGet("/assignments/{id}", GetAssignmentById);
-            _ = app.MapDelete("/assignments/{id}", DeleteAssignment);
-            _ = app.MapPut("/assignments", UpdateAssignment);
+            var group = app.MapGroup("/assignment");
+
+            group.MapPost("/", InsertAssignment);
+            group.MapGet("/", GetAssignments);
+            group.MapGet("/{id}", GetAssignmentById);
+            group.MapDelete("/{id}", DeleteAssignment);
+            group.MapPut("/", UpdateAssignment);
         }
 
-        private static async Task<IResult> InsertAssignment(InsertAssignmentRequest insertAssignmentRequest, IAssignmentService AssignmentService)
+        private static async Task<IResult> InsertAssignment(CreateAssignmentRequest insertAssignmentRequest, IAssignmentService AssignmentService)
         {
             var result = await AssignmentService.CreateAssignmentAsync(insertAssignmentRequest);
 
@@ -26,7 +29,7 @@ namespace TaskManager.API.Controllers
                     RequestValidationError => Results.BadRequest(error.Message),
                     ProjectDoesntExistError => Results.BadRequest(error.Message),
                     _ => Results.Problem()
-                });  
+                });
         }
         private static async Task<IResult> GetAssignments(IAssignmentService AssignmentService)
         {

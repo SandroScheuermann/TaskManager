@@ -3,7 +3,7 @@ using TaskManager.Application.Requests.AssignmentRequests;
 
 namespace TaskManager.Application.Validation.AssignmentValidations
 {
-    public class InsertAssignmentRequestValidator : AbstractValidator<InsertAssignmentRequest>
+    public class InsertAssignmentRequestValidator : AbstractValidator<CreateAssignmentRequest>
     {
         public InsertAssignmentRequestValidator()
         {

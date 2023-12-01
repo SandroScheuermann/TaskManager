@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace TaskManager.Application.Validation.ErrorHandling
+namespace TaskManager.Application.Validation.ResultHandling
 {
     public class Result<TSuccess, TFailure>
     {
@@ -54,6 +54,21 @@ namespace TaskManager.Application.Validation.ErrorHandling
 
             throw new UnreachableException();
         }
+
+        public async Task<Result<TNewSuccess, TFailure>> BindAsync<TNewSuccess>(Task<Func<TSuccess, Task<Result<TNewSuccess, TFailure>>>> func)
+        {
+            if (Value is not null)
+            {
+                return await func.Result(Value);
+            }
+            else if (Error is not null)
+            {
+                return Error; 
+            }
+
+            throw new UnreachableException();
+        }    
+
     }
     public abstract class Error(string message)
     {

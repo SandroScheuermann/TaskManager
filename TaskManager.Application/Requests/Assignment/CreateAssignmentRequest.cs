@@ -1,8 +1,8 @@
 ﻿using TaskManager.Domain.Enums;
 
-namespace TaskManager.Application.Requests.AssignmentRequests
+namespace TaskManager.Application.Requests.Assignment
 {
-    public class InsertAssignmentRequest
+    public class CreateAssignmentRequest
     {
         public required string ProjectId { get; set; }
         public required string Title { get; set; }

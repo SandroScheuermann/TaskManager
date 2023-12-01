@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using TaskManager.Application.Validation.ErrorHandling;
+using TaskManager.Application.Validation.ResultHandling;
 
 namespace TaskManager.Application.Validation.Errors
 {

@@ -9,11 +9,13 @@ namespace TaskManager.API.Controllers
     {
         public static void MapUserControllers(this WebApplication app)
         {
-            _ = app.MapPost("/users", InsertUser);
-            _ = app.MapGet("/users", GetUsers);
-            _ = app.MapGet("/users/{id}", GetUserById);
-            _ = app.MapDelete("/users/{id}", DeleteUser);
-            _ = app.MapPut("/users", UpdateUser);
+            var group = app.MapGroup("/users");
+
+            group.MapPost("/", InsertUser);
+            group.MapGet("/", GetUsers);
+            group.MapGet("/{id}", GetUserById);
+            group.MapDelete("/{id}", DeleteUser);
+            group.MapPut("/", UpdateUser);
         }
 
         private static async Task<IResult> InsertUser(InsertUserRequest insertUserRequest, IUserService UserService)
