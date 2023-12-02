@@ -64,7 +64,7 @@ namespace TaskManager.Application.Handlers.Assignments
 
             var response = new InsertAssignmentResponse()
             {
-                Title = assignment.Title
+                Id = assignment.Id
             };
 
             return response;

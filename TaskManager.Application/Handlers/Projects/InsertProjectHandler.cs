@@ -61,7 +61,7 @@ namespace TaskManager.Application.Handlers.Projects
 
             var response = new InsertProjectResponse()
             {
-                Id = project.Id, 
+                Id = project.Id
             };
 
             return response;

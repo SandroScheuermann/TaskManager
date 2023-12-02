@@ -12,13 +12,13 @@ namespace TaskManager.Application.Handlers.Users
 {
     public class InsertUserHandler(IUserRepository userRepository, IValidator<InsertUserRequest> projectValidator)
         : IRequestHandler<InsertUserCommand, Result<InsertUserResponse, Error>>
-    { 
-        public IUserRepository UserRepository { get; set; } = userRepository; 
+    {
+        public IUserRepository UserRepository { get; set; } = userRepository;
         public IValidator<InsertUserRequest> UserValidator { get; set; } = projectValidator;
 
         public Task<Result<InsertUserResponse, Error>> Handle(InsertUserCommand command, CancellationToken cancellationToken)
         {
-            var response = ValidateRequest(command.Request) 
+            var response = ValidateRequest(command.Request)
                .Bind(CreateAndInsertUser);
 
             return Task.FromResult(response);
@@ -34,12 +34,12 @@ namespace TaskManager.Application.Handlers.Users
             }
 
             return request;
-        }  
+        }
         private Result<InsertUserResponse, Error> CreateAndInsertUser(InsertUserRequest request)
         {
             var user = new User()
             {
-                Id = string.Empty, 
+                Id = string.Empty,
                 UserName = request.UserName,
                 Role = request.UserRole,
             };
@@ -48,8 +48,7 @@ namespace TaskManager.Application.Handlers.Users
 
             var response = new InsertUserResponse()
             {
-                Id = user.Id,
-                UserName = request.UserName,
+                Id = user.Id
             };
 
             return response;
