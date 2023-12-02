@@ -2,9 +2,6 @@
 {
     public class InsertProjectResponse
     {
-        public required string UserId { get; set; }
-
-        public IEnumerable<string>? AssignmentIds { get; set; }
-
+        public required string Id { get; set; }  
     }
 } 

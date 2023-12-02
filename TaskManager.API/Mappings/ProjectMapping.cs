@@ -3,11 +3,11 @@ using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.ResultHandling.Errors;
 
-namespace TaskManager.API.Controllers
+namespace TaskManager.API.Mappings
 {
-    public static class ProjectController
+    public static class ProjectMapping
     {
-        public static void MapProjectControllers(this WebApplication app)
+        public static void MapProjectEndpoints(this WebApplication app)
         {
             var group = app.MapGroup("/projects");
 

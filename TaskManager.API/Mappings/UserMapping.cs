@@ -1,30 +1,41 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
+using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Commands.Users;
+using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.Requests.Users;
 using TaskManager.Application.ResultHandling.Errors;
 
-namespace TaskManager.API.Controllers
+namespace TaskManager.API.Mappings
 {
-    public static class UserController
+    public static class UserMapping
     {
-        public static void MapUserControllers(this WebApplication app)
+        public static void MapUserEndpoints(this WebApplication app)
         {
             var group = app.MapGroup("/users");
 
             group.MapPost("/", InsertUser);
+            group.MapGet("/{id}/projects", GetUserProjects);
+
             group.MapGet("/", GetUsers);
             group.MapGet("/{id}", GetUserById);
             group.MapDelete("/{id}", DeleteUser);
             group.MapPut("/", UpdateUser);
-
-            group.MapGet("/{id}/projects", GetUserProjects);
-
         }
 
-        private static async Task<IResult> InsertUser()
-        { 
+        private static async Task<IResult> InsertUser(InsertUserRequest insertUserRequest, IMediator mediator)
+        {
+            var insertCommand = new InsertUserCommand { Request = insertUserRequest };
 
-            return Results.Ok();
+            var response = await mediator.Send(insertCommand);
+
+            return response.Match(
+                    success => Results.Ok(success),
+                    error => error switch
+                    {
+                        RequestValidationError => Results.BadRequest(error.Message), 
+                        _ => Results.Problem(error.Message)
+                    });
         }
         private static async Task<IResult> GetUsers()
         {
@@ -45,7 +56,7 @@ namespace TaskManager.API.Controllers
         {
 
             return Results.Ok();
-        } 
+        }
 
         private static async Task<IResult> GetUserProjects(string id, IMediator mediator)
         {

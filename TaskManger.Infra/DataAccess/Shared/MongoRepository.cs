@@ -46,6 +46,8 @@ namespace Muscler.Infra.DataAccess.Shared
         {
             var getByIdFilter = Builders<T>.Filter.Eq(entity => entity.Id, id);
 
+            var countResult = await Collection.CountDocumentsAsync(getByIdFilter); 
+
             return await Collection.CountDocumentsAsync(getByIdFilter) > 0;
         } 
 

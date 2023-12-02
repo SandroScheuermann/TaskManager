@@ -39,7 +39,7 @@ namespace TaskManager.Application.Handlers.Projects
         } 
         private Result<InsertProjectRequest, Error> CheckUserExistance(InsertProjectRequest request)
         {
-            var userExist = ProjectRepository.CheckExistanceById(request.UserId).Result;
+            var userExist = UserRepository.CheckExistanceById(request.UserId).Result;
 
             if (!userExist)
             {
@@ -61,7 +61,7 @@ namespace TaskManager.Application.Handlers.Projects
 
             var response = new InsertProjectResponse()
             {
-                UserId = request.UserId, 
+                Id = project.Id, 
             };
 
             return response;

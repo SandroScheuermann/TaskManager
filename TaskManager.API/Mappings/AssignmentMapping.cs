@@ -3,11 +3,11 @@ using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.ResultHandling.Errors;
 
-namespace TaskManager.API.Controllers
+namespace TaskManager.API.Mappings
 {
-    public static class AssignmentController
+    public static class AssignmentMapping
     {
-        public static void MapAssignmentControllers(this WebApplication app)
+        public static void MapAssignmentEndpoints(this WebApplication app)
         {
             var group = app.MapGroup("/assignment");
 

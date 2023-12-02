@@ -53,7 +53,7 @@ namespace TaskManager.Application.ResultHandling
             }
 
             throw new UnreachableException();
-        }  
+        }
 
         public async Task<Result<TNewSuccess, TFailure>> BindAsync<TNewSuccess>(Task<Func<TSuccess, Task<Result<TNewSuccess, TFailure>>>> func)
         {

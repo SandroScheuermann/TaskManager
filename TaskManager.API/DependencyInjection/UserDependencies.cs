@@ -1,4 +1,6 @@
-﻿using TaskManager.Domain.Repositories;
+﻿using FluentValidation;
+using TaskManager.Application.Validators.Projects;
+using TaskManager.Domain.Repositories;
 using TaskManger.Infra.DataAccess;
 
 namespace TaskManager.API.DependencyInjection
@@ -8,6 +10,9 @@ namespace TaskManager.API.DependencyInjection
         public static void InjectUserDependencies(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IUserRepository, UserRepository>(); 
+
+            builder.Services.AddValidatorsFromAssemblyContaining<InsertUserRequestValidator>();
+
         } 
     }
 }

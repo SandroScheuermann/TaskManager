@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using TaskManager.Application.Requests.Projects;
-using TaskManager.Application.Responses.Assignments;
+using TaskManager.Application.Responses.Projects;
 using TaskManager.Application.ResultHandling;
 
 namespace TaskManager.Application.Commands.Projects

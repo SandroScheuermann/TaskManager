@@ -1,4 +1,4 @@
-﻿namespace TaskManager.Application.Responses.Assignments
+﻿namespace TaskManager.Application.Responses.Projects
 {
     public class DeleteProjectResponse
     {

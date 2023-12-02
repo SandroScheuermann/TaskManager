@@ -1,7 +1,7 @@
-using TaskManager.API.Controllers;
 using TaskManager.API.DependencyInjection;
+using TaskManager.API.Mappings;
 using TaskManager.Application.ConfigurationModels;
-using TaskManager.Application.Handlers.Assignments;
+using TaskManager.Application.Handlers.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<DefaultSettings>(builder.Configuration.GetSection("DefaultMongoDbSettings"));
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(DeleteAssignmentHandler)));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(InsertUserHandler)));
 
 builder.InjectDependencies();
  
@@ -24,7 +24,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapUserControllers();
-app.MapAssignmentControllers();
+app.MapUserEndpoints();
+app.MapProjectEndpoints();
+app.MapAssignmentEndpoints();
 
 app.Run();

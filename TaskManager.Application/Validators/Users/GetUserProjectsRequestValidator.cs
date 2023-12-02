@@ -2,7 +2,7 @@
 using TaskManager.Application.Requests.Users;
 using TaskManager.Application.Validators.Shared;
 
-namespace TaskManager.Application.Validators.Projects
+namespace TaskManager.Application.Validators.Users
 {
     public class GetUserProjectsRequestValidator : AbstractValidator<GetUserProjectsRequest>
     {
