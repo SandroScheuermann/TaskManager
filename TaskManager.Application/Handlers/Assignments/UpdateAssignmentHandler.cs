@@ -38,7 +38,7 @@ namespace TaskManager.Application.Handlers.Assignments
         }
         private Result<UpdateAssignmentRequest, Error> CheckAssignmentExistance(UpdateAssignmentRequest request)
         {
-            var assignmentExists = AssignmentRepository.CheckIfExistsById(request.Id).Result;
+            var assignmentExists = AssignmentRepository.CheckExistanceById(request.Id).Result;
 
             if (!assignmentExists)
             {
@@ -56,8 +56,8 @@ namespace TaskManager.Application.Handlers.Assignments
                 Title = request.Title,
                 Description = request.Description,
                 ExpireDate = request.ExpireDate,
-                Status = request.Status,
-                Priority = request.Priority,
+                Status = request.Status, 
+                Priority = null,
             };
 
             var result = AssignmentRepository.UpdateAsync(updatedAssignment).Result;
@@ -69,13 +69,7 @@ namespace TaskManager.Application.Handlers.Assignments
 
             var response = new UpdateAssignmentResponse()
             {
-                Id = updatedAssignment.Id,
-                ProjectId = string.Empty,
-                Title = updatedAssignment.Title ?? string.Empty,
-                Description = updatedAssignment.Description ?? string.Empty,
-                ExpireDate = updatedAssignment.ExpireDate.GetValueOrDefault(),
-                Status = updatedAssignment.Status.GetValueOrDefault(),
-                Priority = updatedAssignment.Priority.GetValueOrDefault(),
+                Id = updatedAssignment.Id, 
             };
 
             return response;

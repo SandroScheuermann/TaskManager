@@ -9,23 +9,23 @@ using TaskManager.Domain.Repositories;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class InsertAssignmentHandler(IAssignmentRepository assignmentRepository, IProjectRepository projectRepository, IValidator<CreateAssignmentRequest> assignmentValidator)
+    public class InsertAssignmentHandler(IAssignmentRepository assignmentRepository, IProjectRepository projectRepository, IValidator<InsertAssignmentRequest> assignmentValidator)
         : IRequestHandler<InsertAssignmentCommand, Result<InsertAssignmentResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
         public IProjectRepository ProjectRepository { get; set; } = projectRepository;
-        public IValidator<CreateAssignmentRequest> AssignmentValidator { get; set; } = assignmentValidator; 
+        public IValidator<InsertAssignmentRequest> AssignmentValidator { get; set; } = assignmentValidator;
 
         public Task<Result<InsertAssignmentResponse, Error>> Handle(InsertAssignmentCommand command, CancellationToken cancellationToken)
-        { 
-             var response = ValidateRequest(command.Request)
-                .Bind(CheckIfProjectExists)
-                .Bind(CreateAndInsertAssignment);
+        {
+            var response = ValidateRequest(command.Request)
+               .Bind(CheckProjectExistance)
+               .Bind(CreateAndInsertAssignment);
 
             return Task.FromResult(response);
         }
 
-        private Result<CreateAssignmentRequest, Error> ValidateRequest(CreateAssignmentRequest request)
+        private Result<InsertAssignmentRequest, Error> ValidateRequest(InsertAssignmentRequest request)
         {
             var validationResult = AssignmentValidator.ValidateAsync(request).Result;
 
@@ -36,9 +36,9 @@ namespace TaskManager.Application.Handlers.Assignments
 
             return request;
         }
-        private Result<CreateAssignmentRequest, Error> CheckIfProjectExists(CreateAssignmentRequest request)
+        private Result<InsertAssignmentRequest, Error> CheckProjectExistance(InsertAssignmentRequest request)
         {
-            var projectExist = ProjectRepository.CheckIfExistsById(request.ProjectId).Result;
+            var projectExist = ProjectRepository.CheckExistanceById(request.ProjectId).Result;
 
             if (!projectExist)
             {
@@ -47,7 +47,7 @@ namespace TaskManager.Application.Handlers.Assignments
 
             return request;
         }
-        private Result<InsertAssignmentResponse, Error> CreateAndInsertAssignment(CreateAssignmentRequest request)
+        private Result<InsertAssignmentResponse, Error> CreateAndInsertAssignment(InsertAssignmentRequest request)
         {
             var assignment = new Assignment()
             {

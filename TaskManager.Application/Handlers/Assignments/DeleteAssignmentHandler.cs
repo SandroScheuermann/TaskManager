@@ -37,7 +37,7 @@ namespace TaskManager.Application.Handlers.Assignments
         }
         private Result<DeleteAssignmentRequest, Error> CheckAssignmentExistance(DeleteAssignmentRequest request)
         {
-            var assignmentExists = AssignmentRepository.CheckIfExistsById(request.Id).Result;
+            var assignmentExists = AssignmentRepository.CheckExistanceById(request.Id).Result;
 
             if (!assignmentExists)
             {

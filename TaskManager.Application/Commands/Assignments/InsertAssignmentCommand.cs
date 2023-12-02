@@ -6,7 +6,7 @@ namespace TaskManager.Application.Commands.Assignments
 {
     public class InsertAssignmentCommand : IRequest<Result<InsertAssignmentResponse, Error>>
     {
-        public required CreateAssignmentRequest Request { get; set; }
+        public required InsertAssignmentRequest Request { get; set; }
 
     }
 }

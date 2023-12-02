@@ -18,7 +18,7 @@ namespace TaskManager.API.Controllers
             group.MapPatch("/", UpdateAssignment);
         }
 
-        private static async Task<IResult> InsertAssignment(CreateAssignmentRequest insertAssignmentRequest, IMediator Mediator)
+        private static async Task<IResult> InsertAssignment(InsertAssignmentRequest insertAssignmentRequest, IMediator Mediator)
         {
             var insertCommand = new InsertAssignmentCommand { Request = insertAssignmentRequest };
 
@@ -33,11 +33,11 @@ namespace TaskManager.API.Controllers
                     _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> GetAssignments(IMediator Mediator)
+        private static async Task<IResult> GetAssignments(IMediator mediator)
         {
             var getCommand = new GetAssignmentsCommand();
 
-            var response = await Mediator.Send(getCommand);
+            var response = await mediator.Send(getCommand);
 
             return response.Match(
                 success => Results.Ok(success),
@@ -46,13 +46,13 @@ namespace TaskManager.API.Controllers
                     _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> GetAssignmentById(string id, IMediator Mediator)
+        private static async Task<IResult> GetAssignmentById(string id, IMediator mediator)
         {
             var getByIdRequest = new GetAssignmentByIdRequest { Id = id };
 
             var getByIdCommand = new GetAssignmentByIdCommand { Request = getByIdRequest };
 
-            var response = await Mediator.Send(getByIdCommand);
+            var response = await mediator.Send(getByIdCommand);
 
             return response.Match(
                 success => Results.Ok(success),
@@ -63,13 +63,13 @@ namespace TaskManager.API.Controllers
                     _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> DeleteAssignment(string id, IMediator Mediator)
+        private static async Task<IResult> DeleteAssignment(string id, IMediator mediator)
         {
             var deleteRequest = new DeleteAssignmentRequest { Id = id };
 
             var deleteCommand = new DeleteAssignmentCommand { Request = deleteRequest };
 
-            var response = await Mediator.Send(deleteCommand);
+            var response = await mediator.Send(deleteCommand);
 
             return response.Match(
                 success => Results.Ok(success),
@@ -81,11 +81,11 @@ namespace TaskManager.API.Controllers
                     _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> UpdateAssignment(UpdateAssignmentRequest updateAssignmentRequest, IMediator Mediator)
+        private static async Task<IResult> UpdateAssignment(UpdateAssignmentRequest updateAssignmentRequest, IMediator mediator)
         {
             var updateCommand = new UpdateAssignmentCommand { Request = updateAssignmentRequest };
 
-            var response = await Mediator.Send(updateCommand);
+            var response = await mediator.Send(updateCommand);
 
             return response.Match(
                 success => Results.Ok(success),
