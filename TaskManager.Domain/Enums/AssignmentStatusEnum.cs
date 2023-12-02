@@ -4,6 +4,6 @@
     {
         Pending = 0,
         InProgress = 1,
-        Done = 3,
+        Done = 2,
     }
 }
