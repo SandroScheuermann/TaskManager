@@ -8,7 +8,7 @@ namespace Muscler.Infra.DataAccess.Shared
 {
     public class MongoRepository<T> : IMongoRepository<T> where T : MongoEntity
     {
-        private IMongoCollection<T> Collection { get; set; }
+        protected IMongoCollection<T> Collection { get; set; }
 
         public MongoRepository(IOptions<DefaultSettings> settings)
         {
@@ -29,7 +29,7 @@ namespace Muscler.Infra.DataAccess.Shared
             return await Collection.DeleteOneAsync(deleteByIdFilter);
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             var filter = Builders<T>.Filter.Empty;
             return await Collection.Find(filter).ToListAsync();
@@ -42,11 +42,22 @@ namespace Muscler.Infra.DataAccess.Shared
             return await Collection.Find(getByIdFilter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> CheckIfExistsById(string id)
+        public async Task<bool> CheckExistanceById(string id)
         {
             var getByIdFilter = Builders<T>.Filter.Eq(entity => entity.Id, id);
 
             return await Collection.CountDocumentsAsync(getByIdFilter) > 0;
+        } 
+
+        public async Task<IEnumerable<string>> BulkCheckExistanceById(IEnumerable<string> ids)
+        {
+            var getByIdsFilter = Builders<T>.Filter.In(entity => entity.Id, ids);
+
+            var existingIds = await Collection.Find(getByIdsFilter).Project(entity => entity.Id).ToListAsync();
+
+            var nonExistingIds = ids.Except(existingIds);
+
+            return nonExistingIds;
         }
 
         public async Task<UpdateResult> UpdateAsync(T item)

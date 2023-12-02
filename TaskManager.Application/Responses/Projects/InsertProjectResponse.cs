@@ -1,8 +1,10 @@
 ﻿namespace TaskManager.Application.Requests.Projects
 {
-    public class InsertProjectRequest
-    {  
+    public class InsertProjectResponse
+    {
         public required string UserId { get; set; }
-        public required string ProjectName { get; set; }
+
+        public IEnumerable<string>? AssignmentIds { get; set; }
+
     }
 } 

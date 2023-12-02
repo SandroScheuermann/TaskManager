@@ -2,7 +2,7 @@
 
 namespace TaskManager.Application.Requests.Assignments
 {
-    public class CreateAssignmentRequest
+    public class InsertAssignmentRequest
     {
         public required string ProjectId { get; set; }
 

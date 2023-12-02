@@ -15,14 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Users\" />
-    <Folder Include="Commands\Projects\" />
-    <Folder Include="Handlers\Users\" />
-    <Folder Include="Handlers\Projects\" />
-    <Folder Include="Responses\Users\" />
-    <Folder Include="Responses\Projects\" />
     <Folder Include="Validators\Users\" />
-    <Folder Include="Validators\Projects\" />
   </ItemGroup>
 
 </Project>

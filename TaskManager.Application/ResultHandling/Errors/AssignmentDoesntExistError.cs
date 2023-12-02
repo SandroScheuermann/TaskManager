@@ -1,9 +1,6 @@
 ﻿namespace TaskManager.Application.ResultHandling.Errors
 {
-    public class ProjectDoesntExistError : Error
-    {
-        public ProjectDoesntExistError() : base("The informed project doesn't exist in the database.")
-        {
-        }
+    public class AssignmentDoesntExistError() : Error("The informed assignment doesn't exist in the database.")
+    { 
     }
 }

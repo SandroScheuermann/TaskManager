@@ -5,7 +5,7 @@ namespace TaskManager.Domain.Repositories
 {
     public interface IMongoRepository<T> where T : MongoEntity
     {
-        public Task<List<T>> GetAllAsync();
+        public Task<IEnumerable<T>> GetAllAsync();
 
         public Task<T> GetByIdAsync(string id);
 
@@ -15,6 +15,8 @@ namespace TaskManager.Domain.Repositories
 
         public Task<UpdateResult> UpdateAsync(T item);
 
-        public Task<bool> CheckIfExistsById(string id);
+        public Task<bool> CheckExistanceById(string id);
+
+        public Task<IEnumerable<string>> BulkCheckExistanceById(IEnumerable<string> ids);
     }
 }

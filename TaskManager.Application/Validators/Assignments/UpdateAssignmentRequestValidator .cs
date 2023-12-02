@@ -8,9 +8,9 @@ namespace TaskManager.Application.Validators.Assignments
     {
         public UpdateAssignmentRequestValidator()
         {
-            RuleFor(request => request.Id) 
-                .MustBeValidObjectId("Assignment ID is not a valid ObjectId")
-                .NotEmpty().WithMessage("Assignment ID is required.");   
+            RuleFor(request => request.Id)
+                .NotEmpty().WithMessage("O ID da tarefa é obrigatório.")
+                .MustBeValidObjectId("O ID da tarefa não é um ObjectId válido.");
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using TaskManager.Application.Requests.Projects;
+﻿using MediatR;
+using TaskManager.Application.Commands.Projects;
+using TaskManager.Application.Requests.Projects;
+using TaskManager.Application.ResultHandling.Errors;
 
 namespace TaskManager.API.Controllers
 {
@@ -9,35 +12,58 @@ namespace TaskManager.API.Controllers
             var group = app.MapGroup("/projects");
 
             group.MapPost("/", InsertProject);
-            group.MapGet("/", GetProjects);
-            group.MapGet("/{id}", GetProjectById);
+            group.MapGet("/", GetProjects); 
             group.MapDelete("/{id}", DeleteProject);
-            group.MapPut("/", UpdateProject);
         }
 
-        private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest)
+        private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest, IMediator mediator)
         {
+            var insertCommand = new InsertProjectCommand { Request = insertProjectRequest };
 
-            return Results.Ok();
-        }
-        private static async Task<IResult> GetProjects()
-        {
+            var response = await mediator.Send(insertCommand);
 
-            return Results.Ok();
+            return response.Match(
+                    success => Results.Ok(success),
+                    error => error switch
+                    {
+                        RequestValidationError => Results.BadRequest(error.Message),
+                        AssignmentDoesntExistError => Results.NotFound(error.Message),
+                        ProjectDoesntExistError => Results.NotFound(error.Message),
+                        _ => Results.Problem(error.Message)
+                    });
         }
-        private static async Task<IResult> GetProjectById(string id)
-        {
 
-            return Results.Ok();
-        }
-        private static async Task<IResult> DeleteProject(string id)
+        private static async Task<IResult> GetProjects(IMediator mediator)
         {
+            var getCommand = new GetProjectsCommand();
 
-            return Results.Ok();
-        }
-        private static async Task<IResult> UpdateProject(UpdateProjectRequest updateProjectRequest)
+            var response = await mediator.Send(getCommand);
+
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    _ => Results.Problem(error.Message)
+                });
+        } 
+
+        private static async Task<IResult> DeleteProject(string id, IMediator mediator)
         {
-            return Results.Ok();
+            var deleteRequest = new DeleteProjectRequest { Id = id };
+
+            var deleteCommand = new DeleteProjectCommand { Request = deleteRequest };
+
+            var response = await mediator.Send(deleteCommand);
+
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    RequestValidationError => Results.BadRequest(error.Message),
+                    ProjectDoesntExistError => Results.NotFound(),
+                    UnknownError => Results.Problem(error.Message),
+                    _ => Results.Problem(error.Message)
+                });
         }
     }
 }
