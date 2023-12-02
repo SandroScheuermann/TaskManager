@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Application.Requests.Projects
+﻿using MongoDB.Bson;
+
+namespace TaskManager.Application.Requests.Projects
 {
     public class DeleteProjectRequest
     {

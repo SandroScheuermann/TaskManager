@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using TaskManager.Domain.Entities.Shared;
 
 namespace TaskManager.Domain.Repositories
@@ -15,8 +16,6 @@ namespace TaskManager.Domain.Repositories
 
         public Task<UpdateResult> UpdateAsync(T item);
 
-        public Task<bool> CheckExistanceById(string id);
-
-        public Task<IEnumerable<string>> BulkCheckExistanceById(IEnumerable<string> ids);
+        public Task<bool> CheckExistanceById(string id); 
     }
 }

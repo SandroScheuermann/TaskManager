@@ -8,7 +8,7 @@ namespace TaskManager.Application.Validators.Projects
     {
         public InsertProjectRequestValidator()
         {
-            RuleFor(request => request.UserId)
+            RuleFor(request => request.UserId.ToString())
                 .NotEmpty().WithMessage("O ID do usuário é um campo obrigatório")
                 .MustBeValidObjectId("O ID do usuário não é um ObjectId válido.");
 

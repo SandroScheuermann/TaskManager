@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MongoDB.Bson;
 using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.ResultHandling.Errors;

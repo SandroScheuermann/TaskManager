@@ -1,4 +1,5 @@
-﻿using TaskManager.Domain.Entities;
+﻿using MongoDB.Bson;
+using TaskManager.Domain.Entities;
 
 namespace TaskManager.Domain.Repositories
 {

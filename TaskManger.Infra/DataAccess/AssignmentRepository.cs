@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Muscler.Infra.DataAccess.Shared;
 using TaskManager.Application.ConfigurationModels;

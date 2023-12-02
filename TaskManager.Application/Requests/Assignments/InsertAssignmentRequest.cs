@@ -1,4 +1,5 @@
-﻿using TaskManager.Domain.Enums;
+﻿using MongoDB.Bson;
+using TaskManager.Domain.Enums;
 
 namespace TaskManager.Application.Requests.Assignments
 {
@@ -10,7 +11,7 @@ namespace TaskManager.Application.Requests.Assignments
 
         public required string Description { get; set; }
 
-        public required DateTime ExpireDate { get; set; }
+        public required DateTime ExpirationDate { get; set; }
 
         public required AssignmentStatusEnum Status { get; set; }
 

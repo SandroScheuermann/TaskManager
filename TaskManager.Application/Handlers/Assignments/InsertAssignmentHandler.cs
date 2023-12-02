@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using MongoDB.Bson;
 using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.ResultHandling;
@@ -55,7 +56,7 @@ namespace TaskManager.Application.Handlers.Assignments
                 ProjectId = request.ProjectId,
                 Title = request.Title,
                 Description = request.Description,
-                ExpireDate = request.ExpireDate,
+                ExpirationDate = request.ExpirationDate,
                 Status = request.Status,
                 Priority = request.Priority,
             };

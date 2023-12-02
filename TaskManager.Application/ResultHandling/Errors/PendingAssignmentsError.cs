@@ -3,7 +3,7 @@
 namespace TaskManager.Application.ResultHandling.Errors
 {
     public class PendingAssignmentsError(IEnumerable<Assignment> pendingAssignments) 
-        : Error($"There is pending Assignments linked with this project : {string.Join(',', pendingAssignments)}")
+        : Error($"Existem tarefas pendentes associadas a este projeto, remova ou conclua as seguintes tarefas : {string.Join(',', pendingAssignments)}")
     {
     }
 }

@@ -1,8 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
-using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Commands.Users;
-using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.Requests.Users;
 using TaskManager.Application.ResultHandling.Errors;
 
@@ -15,12 +12,7 @@ namespace TaskManager.API.Mappings
             var group = app.MapGroup("/users");
 
             group.MapPost("/", InsertUser);
-            group.MapGet("/{id}/projects", GetUserProjects);
-
-            group.MapGet("/", GetUsers);
-            group.MapGet("/{id}", GetUserById);
-            group.MapDelete("/{id}", DeleteUser);
-            group.MapPut("/", UpdateUser);
+            group.MapGet("/{id}/projects", GetUserProjects); 
         }
 
         private static async Task<IResult> InsertUser(InsertUserRequest insertUserRequest, IMediator mediator)
@@ -36,31 +28,11 @@ namespace TaskManager.API.Mappings
                         RequestValidationError => Results.BadRequest(error.Message), 
                         _ => Results.Problem(error.Message)
                     });
-        }
-        private static async Task<IResult> GetUsers()
-        {
-
-            return Results.Ok();
-        }
-        private static async Task<IResult> GetUserById(string id)
-        {
-
-            return Results.Ok();
-        }
-        private static async Task<IResult> DeleteUser(string id)
-        {
-
-            return Results.Ok();
-        }
-        private static async Task<IResult> UpdateUser()
-        {
-
-            return Results.Ok();
-        }
+        }  
 
         private static async Task<IResult> GetUserProjects(string id, IMediator mediator)
         {
-            var request = new GetUserProjectsRequest { UserId = id };
+            var request = new GetUserProjectsRequest { UserId = id};
 
             var getCommand = new GetUserProjectsCommand { Request = request };
 

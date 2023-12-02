@@ -8,7 +8,7 @@ namespace TaskManager.Application.Validators.Assignments
     {
         public InsertAssignmentRequestValidator()
         {
-            RuleFor(request => request.ProjectId)
+            RuleFor(request => request.ProjectId.ToString())
                 .NotEmpty().WithMessage("O ID do projeto é um campo obrigatório.")
                 .MustBeValidObjectId("O ID do projeto não é um ObjectId válido..");
 
@@ -20,11 +20,11 @@ namespace TaskManager.Application.Validators.Assignments
                 .NotEmpty().WithMessage("A descrição é um campo obrigatório.")
                 .Length(1, 500).WithMessage("A descrição deve possuir entre 1 e 500 caracteres.");
 
-            RuleFor(request => request.ExpireDate)
+            RuleFor(request => request.ExpirationDate)
                 .GreaterThan(DateTime.Now).WithMessage("A data de expiração deve ser no futuro.");
 
             RuleFor(request => request.Status)
-                .IsInEnum().WithMessage("O status deve ser um valor válido do enum AssignmentStatus (0 - Pendente, 1 - Em Progresso, 3 - Finalizado).");
+                .IsInEnum().WithMessage("O status deve ser um valor válido do enum AssignmentStatus (0 - Pendente, 1 - Em Progresso, 2 - Finalizado).");
         }
     }
 }

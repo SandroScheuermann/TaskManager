@@ -8,9 +8,9 @@ namespace TaskManager.Application.Validators.Users
     {
         public GetUserProjectsRequestValidator()
         {
-            RuleFor(request => request.UserId)
-                .NotEmpty().WithMessage("O ID do usuário é um campo obrigatório")
-                .MustBeValidObjectId("O ID do usuário não é um ObjectId válido.");
+            //RuleFor(request => request.UserId)
+            //    .NotEmpty().WithMessage("O ID do usuário é um campo obrigatório")
+            //    .MustBeValidObjectId("O ID do usuário não é um ObjectId válido.");
         }
     }
 }

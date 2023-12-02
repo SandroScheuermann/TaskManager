@@ -8,7 +8,7 @@ namespace TaskManager.Application.Validators.Projects
     {
         public DeleteProjectRequestValidator()
         {
-            RuleFor(request => request.Id)
+            RuleFor(request => request.Id.ToString())
                 .NotEmpty().WithMessage("O ID do projeto é um campo obrigatório")
                 .MustBeValidObjectId("O ID do projeto não é um ObjectId válido.");
         }

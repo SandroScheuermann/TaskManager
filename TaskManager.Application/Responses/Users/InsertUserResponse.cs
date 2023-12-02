@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Application.Responses.Users
+﻿using MongoDB.Bson;
+
+namespace TaskManager.Application.Responses.Users
 {
     public class InsertUserResponse
     {

@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Application.Requests.Users
+﻿using MongoDB.Bson;
+
+namespace TaskManager.Application.Requests.Users
 {
     public class GetUserProjectsRequest
     {

@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Application.Responses.Assignments
+﻿using MongoDB.Bson;
+
+namespace TaskManager.Application.Responses.Assignments
 {
     public class UpdateAssignmentResponse
     {
