@@ -53,9 +53,9 @@ namespace TaskManager.Application.Handlers.Assignments
             {
                 Id = request.Id,
                 ProjectId = string.Empty,
-                Title = request.Title,
+                Title = string.Empty,
                 Description = request.Description,
-                ExpirationDate = request.ExpirationDate,
+                ExpirationDate = null,
                 Status = request.Status, 
                 Priority = null,
             };

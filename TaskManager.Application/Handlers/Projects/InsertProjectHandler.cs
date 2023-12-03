@@ -21,7 +21,7 @@ namespace TaskManager.Application.Handlers.Projects
         public Task<Result<InsertProjectResponse, Error>> Handle(InsertProjectCommand command, CancellationToken cancellationToken)
         {
             var response = ValidateRequest(command.Request)
-               .Bind(CheckUserExistance) 
+               .Bind(CheckUserExistance)
                .Bind(CreateAndInsertProject);
 
             return Task.FromResult(response);
@@ -37,7 +37,7 @@ namespace TaskManager.Application.Handlers.Projects
             }
 
             return request;
-        } 
+        }
         private Result<InsertProjectRequest, Error> CheckUserExistance(InsertProjectRequest request)
         {
             var userExist = UserRepository.CheckExistanceById(request.UserId).Result;
@@ -48,7 +48,7 @@ namespace TaskManager.Application.Handlers.Projects
             }
 
             return request;
-        }  
+        } 
         private Result<InsertProjectResponse, Error> CreateAndInsertProject(InsertProjectRequest request)
         {
             var project = new Project()

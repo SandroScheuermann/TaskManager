@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using MediatR;
-using MongoDB.Bson;
 using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.ResultHandling;
@@ -21,6 +20,7 @@ namespace TaskManager.Application.Handlers.Assignments
         {
             var response = ValidateRequest(command.Request)
                .Bind(CheckProjectExistance)
+               .Bind(CheckProjectAssignmentsCount)
                .Bind(CreateAndInsertAssignment);
 
             return Task.FromResult(response);
@@ -44,6 +44,17 @@ namespace TaskManager.Application.Handlers.Assignments
             if (!projectExist)
             {
                 return new ProjectDoesntExistError();
+            }
+
+            return request;
+        }
+        private Result<InsertAssignmentRequest, Error> CheckProjectAssignmentsCount(InsertAssignmentRequest request)
+        {
+            var linkedAssignmentsCount = AssignmentRepository.GetAssignmentsCountByProjectId(request.ProjectId).Result;
+
+            if (linkedAssignmentsCount >= 20)
+            {
+                return new MaximumNumberOfAssignmentsError();
             }
 
             return request;

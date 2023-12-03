@@ -15,6 +15,8 @@ namespace TaskManager.Domain.Entities
 
         public required string? Description { get; set; }
 
+        public IEnumerable<string>? Comments { get; set; }
+
         public required DateTime? ExpirationDate { get; set; }
 
         public required AssignmentStatusEnum? Status { get; set; }

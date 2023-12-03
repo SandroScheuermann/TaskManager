@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MongoDB.Bson;
 using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.ResultHandling.Errors;
@@ -31,6 +30,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     ProjectDoesntExistError => Results.NotFound(error.Message),
+                    MaximumNumberOfAssignmentsError => Results.BadRequest(error.Message),
                     _ => Results.Problem(error.Message)
                 });
         }

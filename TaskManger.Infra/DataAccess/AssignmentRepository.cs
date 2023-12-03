@@ -11,6 +11,13 @@ namespace TaskManger.Infra.DataAccess
 {
     public class AssignmentRepository(IOptions<DefaultSettings> settings) : MongoRepository<Assignment>(settings), IAssignmentRepository
     {
+        public async Task<long> GetAssignmentsCountByProjectId(string projectId)
+        {
+            var filter = Builders<Assignment>.Filter.Eq(a => a.ProjectId, projectId);
+
+            return await Collection.CountDocumentsAsync(filter);  
+        }
+
         public async Task<IEnumerable<Assignment>> GetPendingAssignmentsByProjectId(string projectId)
         {
             var filter = Builders<Assignment>.Filter.Eq(a => a.ProjectId, projectId)
