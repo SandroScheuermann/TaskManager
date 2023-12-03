@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Application.ResultHandling.Errors
 {
-    public class AssignmentDoesntExistError() : Error("The informed assignment doesn't exist in the database.")
+    public class AssignmentDoesntExistError() : Error("A tarefa informada não existe no banco de dados.")
     { 
     }
 }

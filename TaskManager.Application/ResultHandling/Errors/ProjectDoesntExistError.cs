@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Application.ResultHandling.Errors
 {
-    public class ProjectDoesntExistError() : Error("The informed project doesn't exist in the database.")
+    public class ProjectDoesntExistError() : Error("O projeto informado não existe no banco de dados.")
     {
     }
 }
