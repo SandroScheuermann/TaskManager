@@ -7,6 +7,6 @@ namespace TaskManager.Application.Commands.Users
 {
     public class GetUserProjectsCommand : IRequest<Result<GetUserProjectsResponse, Error>>
     {
-        public required GetUserProjectsRequest Request { get; set; }
+        public required string UserId { get; set; }
     }
 }

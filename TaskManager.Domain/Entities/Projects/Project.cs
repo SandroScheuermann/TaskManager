@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using TaskManager.Domain.Entities.Shared;
 
-namespace TaskManager.Domain.Entities
+namespace TaskManager.Domain.Entities.Projects
 {
     public class Project : MongoEntity
     {

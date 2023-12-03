@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
 using TaskManager.Application.Commands.Users;
-using TaskManager.Application.Requests.Users;
 using TaskManager.Application.Responses.Users;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
@@ -9,49 +8,49 @@ using TaskManager.Domain.Repositories;
 
 namespace TaskManager.Application.Handlers.Users
 {
-    public class GetUserProjects(IProjectRepository assignmentRepository, IUserRepository userRepository, IValidator<GetUserProjectsRequest> assignmentValidator)
+    public class GetUserProjects(IProjectRepository assignmentRepository, IUserRepository userRepository, IValidator<GetUserProjectsCommand> assignmentValidator)
         : IRequestHandler<GetUserProjectsCommand, Result<GetUserProjectsResponse, Error>>
     {
         public IProjectRepository ProjectRepository { get; set; } = assignmentRepository;
         public IUserRepository UserRepository { get; set; } = userRepository;
-        public IValidator<GetUserProjectsRequest> ProjectValidator { get; set; } = assignmentValidator;
+        public IValidator<GetUserProjectsCommand> ProjectValidator { get; set; } = assignmentValidator;
 
         public Task<Result<GetUserProjectsResponse, Error>> Handle(GetUserProjectsCommand command, CancellationToken cancellationToken)
         {
-            var response = ValidateRequest(command.Request)
+            var response = ValidateRequest(command)
                 .Bind(CheckUserExistance)
                 .Bind(GetProjectsByUserId);
 
             return Task.FromResult(response);
         }
 
-        private Result<GetUserProjectsRequest, Error> ValidateRequest(GetUserProjectsRequest request)
+        private Result<GetUserProjectsCommand, Error> ValidateRequest(GetUserProjectsCommand command)
         {
-            var validationResult = ProjectValidator.ValidateAsync(request).Result;
+            var validationResult = ProjectValidator.ValidateAsync(command).Result;
 
             if (!validationResult.IsValid)
             {
                 return new RequestValidationError(validationResult.Errors);
             }
 
-            return request;
+            return command;
         }
-        private Result<GetUserProjectsRequest, Error> CheckUserExistance(GetUserProjectsRequest request)
+        private Result<GetUserProjectsCommand, Error> CheckUserExistance(GetUserProjectsCommand command)
         {
-            var userExists = UserRepository.CheckExistanceById(request.UserId).Result;
+            var userExists = UserRepository.CheckExistanceById(command.UserId).Result;
 
             if (!userExists)
             {
                 return new UserDoesntExistError();
             }
 
-            return request;
+            return command;
         }
-        private Result<GetUserProjectsResponse, Error> GetProjectsByUserId(GetUserProjectsRequest request)
+        private Result<GetUserProjectsResponse, Error> GetProjectsByUserId(GetUserProjectsCommand command)
         {
-            var projects = ProjectRepository.GetProjectsByUserIdAsync(request.UserId).Result;
+            var projects = ProjectRepository.GetProjectsByUserIdAsync(command.UserId).Result;
 
-            return new GetUserProjectsResponse { UserId = request.UserId, UserProjects = projects };
+            return new GetUserProjectsResponse { UserId = command.UserId, UserProjects = projects };
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
-using MongoDB.Bson;
 using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
-using TaskManager.Domain.Entities;
+using TaskManager.Domain.Entities.Projects;
 using TaskManager.Domain.Repositories;
 
 namespace TaskManager.Application.Handlers.Projects

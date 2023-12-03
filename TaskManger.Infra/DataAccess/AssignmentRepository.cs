@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Muscler.Infra.DataAccess.Shared;
 using TaskManager.Application.ConfigurationModels;
-using TaskManager.Domain.Entities;
+using TaskManager.Domain.Entities.Assignments;
 using TaskManager.Domain.Enums;
 using TaskManager.Domain.Repositories;
 
@@ -27,6 +27,14 @@ namespace TaskManger.Infra.DataAccess
             var assignments = await cursor.ToListAsync();
 
             return assignments;
+        }
+
+        public async Task<UpdateResult> AddAssignmentComment(string assignmentId, Comment comment)
+        {  
+            var filter = Builders<Assignment>.Filter.Eq(doc => doc.Id, assignmentId);
+            var update = Builders<Assignment>.Update.Push(doc => doc.Comments, comment);
+
+            return await Collection.UpdateOneAsync(filter, update);
         }
     }
 }

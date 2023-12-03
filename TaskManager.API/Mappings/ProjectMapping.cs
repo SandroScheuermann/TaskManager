@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MongoDB.Bson;
 using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.ResultHandling.Errors;
@@ -33,7 +32,6 @@ namespace TaskManager.API.Mappings
                         _ => Results.Problem(error.Message)
                     });
         }
-
         private static async Task<IResult> GetProjects(IMediator mediator)
         {
             var getCommand = new GetProjectsCommand();
@@ -47,12 +45,9 @@ namespace TaskManager.API.Mappings
                     _ => Results.Problem(error.Message)
                 });
         } 
-
         private static async Task<IResult> DeleteProject(string id, IMediator mediator)
-        {
-            var deleteRequest = new DeleteProjectRequest { Id = id };
-
-            var deleteCommand = new DeleteProjectCommand { Request = deleteRequest };
+        {  
+            var deleteCommand = new DeleteProjectCommand { Id = id };
 
             var response = await mediator.Send(deleteCommand);
 

@@ -7,6 +7,6 @@ namespace TaskManager.Application.Commands.Assignments
 {
     public class GetAssignmentByIdCommand : IRequest<Result<GetAssignmentByIdResponse, Error>>
     {
-        public required GetAssignmentByIdRequest Request { get; set; }
+        public required string Id { get; set; } 
     }
 }

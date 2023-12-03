@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Muscler.Infra.DataAccess.Shared;
 using TaskManager.Application.ConfigurationModels;
-using TaskManager.Domain.Entities;
+using TaskManager.Domain.Entities.Projects;
 using TaskManager.Domain.Repositories;
 
 namespace TaskManger.Infra.DataAccess

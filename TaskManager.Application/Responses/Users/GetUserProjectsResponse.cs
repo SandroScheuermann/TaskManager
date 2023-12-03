@@ -1,4 +1,4 @@
-﻿using TaskManager.Domain.Entities;
+﻿using TaskManager.Domain.Entities.Projects;
 
 namespace TaskManager.Application.Responses.Users
 {

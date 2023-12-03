@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
 using TaskManager.Application.Commands.Projects;
-using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.Responses.Projects;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
@@ -9,16 +8,16 @@ using TaskManager.Domain.Repositories;
 
 namespace TaskManager.Application.Handlers.Projects
 {
-    public class DeleteProjectHandler(IProjectRepository projectRepository, IAssignmentRepository assignmentRepository, IValidator<DeleteProjectRequest> assignmentValidator)
+    public class DeleteProjectHandler(IProjectRepository projectRepository, IAssignmentRepository assignmentRepository, IValidator<DeleteProjectCommand> assignmentValidator)
         : IRequestHandler<DeleteProjectCommand, Result<DeleteProjectResponse, Error>>
     {
         public IProjectRepository ProjectRepository { get; set; } = projectRepository;
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
-        public IValidator<DeleteProjectRequest> ProjectValidator { get; set; } = assignmentValidator;
+        public IValidator<DeleteProjectCommand> ProjectValidator { get; set; } = assignmentValidator;  
 
         public Task<Result<DeleteProjectResponse, Error>> Handle(DeleteProjectCommand command, CancellationToken cancellationToken)
         {
-            var response = ValidateRequest(command.Request)
+            var response = ValidateRequest(command)
                 .Bind(CheckProjectExistance)
                 .Bind(CheckPendingAssignments)
                 .Bind(DeleteProject);
@@ -26,42 +25,42 @@ namespace TaskManager.Application.Handlers.Projects
             return Task.FromResult(response);
         }
 
-        private Result<DeleteProjectRequest, Error> ValidateRequest(DeleteProjectRequest request)
+        private Result<DeleteProjectCommand, Error> ValidateRequest(DeleteProjectCommand command)
         {
-            var validationResult = ProjectValidator.ValidateAsync(request).Result;
+            var validationResult = ProjectValidator.ValidateAsync(command).Result;
 
             if (!validationResult.IsValid)
             {
                 return new RequestValidationError(validationResult.Errors);
             }
 
-            return request;
+            return command;
         }
-        private Result<DeleteProjectRequest, Error> CheckProjectExistance(DeleteProjectRequest request)
+        private Result<DeleteProjectCommand, Error> CheckProjectExistance(DeleteProjectCommand command)
         {
-            var projectExists = ProjectRepository.CheckExistanceById(request.Id).Result;
+            var projectExists = ProjectRepository.CheckExistanceById(command.Id).Result;
 
             if (!projectExists)
             {
                 return new ProjectDoesntExistError();
             }
 
-            return request;
+            return command;
         }
-        private Result<DeleteProjectRequest, Error> CheckPendingAssignments(DeleteProjectRequest request)
+        private Result<DeleteProjectCommand, Error> CheckPendingAssignments(DeleteProjectCommand command)
         {
-            var pendingAssignments = AssignmentRepository.GetPendingAssignmentsByProjectId(request.Id).Result;
+            var pendingAssignments = AssignmentRepository.GetPendingAssignmentsByProjectId(command.Id).Result;
 
             if (pendingAssignments.Any())
             {
                 return new PendingAssignmentsError(pendingAssignments);
             }
 
-            return request;
+            return command;
         }
-        private Result<DeleteProjectResponse, Error> DeleteProject(DeleteProjectRequest request)
+        private Result<DeleteProjectResponse, Error> DeleteProject(DeleteProjectCommand command)
         {
-            var result = ProjectRepository.DeleteAsync(request.Id).Result;
+            var result = ProjectRepository.DeleteAsync(command.Id).Result;
 
             return result.DeletedCount > 0 ? new DeleteProjectResponse { } : new UnknownError("Failed to delete the informed project.");
         }

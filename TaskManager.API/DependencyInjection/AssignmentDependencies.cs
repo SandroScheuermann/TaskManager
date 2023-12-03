@@ -11,7 +11,7 @@ namespace TaskManager.API.DependencyInjection
         {
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 
-            builder.Services.AddValidatorsFromAssemblyContaining<InsertAssignmentRequestValidator>(); 
+            builder.Services.AddValidatorsFromAssemblyContaining<InsertAssignmentCommandValidator>(); 
         }
     }
 }

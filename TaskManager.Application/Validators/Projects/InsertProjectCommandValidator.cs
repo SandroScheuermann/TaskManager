@@ -4,9 +4,9 @@ using TaskManager.Application.Validators.Shared;
 
 namespace TaskManager.Application.Validators.Projects
 {
-    public class InsertProjectRequestValidator : AbstractValidator<InsertProjectRequest>
+    public class InsertProjectCommandValidator : AbstractValidator<InsertProjectRequest>
     {
-        public InsertProjectRequestValidator()
+        public InsertProjectCommandValidator()
         {
             RuleFor(request => request.UserId.ToString())
                 .NotEmpty().WithMessage("O ID do usuário é um campo obrigatório")

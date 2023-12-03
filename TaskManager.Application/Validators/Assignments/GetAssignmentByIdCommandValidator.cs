@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
-using TaskManager.Application.Requests.Assignments;
+using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Validators.Shared;
 
 namespace TaskManager.Application.Validators.Assignments
 {
-    public class DeleteAssignmentRequestValidator : AbstractValidator<DeleteAssignmentRequest>
+    public class GetAssignmentByIdCommandValidator : AbstractValidator<GetAssignmentByIdCommand>
     {
-        public DeleteAssignmentRequestValidator()
+        public GetAssignmentByIdCommandValidator()
         {
-            RuleFor(request => request.Id.ToString()) 
+            RuleFor(command => command.Id.ToString())
                 .NotEmpty().WithMessage("O ID da tarefa é um campo obrigatório")
                 .MustBeValidObjectId("O ID da tarefa não é um ObjectId válido.");
         }

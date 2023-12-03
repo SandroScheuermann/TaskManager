@@ -15,7 +15,8 @@ namespace TaskManager.API.Mappings
             group.MapGet("/", GetAssignments);
             group.MapGet("/{id}", GetAssignmentById);
             group.MapDelete("/{id}", DeleteAssignment);
-            group.MapPatch("/", UpdateAssignment);
+            group.MapPatch("/{id}", UpdateAssignment);
+            group.MapPatch("/{id}/comments", AddCommentToAssignment);
         }
 
         private static async Task<IResult> InsertAssignment(InsertAssignmentRequest insertAssignmentRequest, IMediator Mediator)
@@ -48,10 +49,8 @@ namespace TaskManager.API.Mappings
                 });
         }
         private static async Task<IResult> GetAssignmentById(string id, IMediator mediator)
-        {
-            var getByIdRequest = new GetAssignmentByIdRequest { Id = id };
-
-            var getByIdCommand = new GetAssignmentByIdCommand { Request = getByIdRequest };
+        {  
+            var getByIdCommand = new GetAssignmentByIdCommand { Id = id };
 
             var response = await mediator.Send(getByIdCommand);
 
@@ -65,10 +64,8 @@ namespace TaskManager.API.Mappings
                 });
         }
         private static async Task<IResult> DeleteAssignment(string id, IMediator mediator)
-        {
-            var deleteRequest = new DeleteAssignmentRequest { Id = id };
-
-            var deleteCommand = new DeleteAssignmentCommand { Request = deleteRequest };
+        {  
+            var deleteCommand = new DeleteAssignmentCommand { Id = id };
 
             var response = await mediator.Send(deleteCommand);
 
@@ -82,11 +79,27 @@ namespace TaskManager.API.Mappings
                     _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> UpdateAssignment(UpdateAssignmentRequest updateAssignmentRequest, IMediator mediator)
+        private static async Task<IResult> UpdateAssignment(string id, UpdateAssignmentRequest updateAssignmentRequest, IMediator mediator)
         {
-            var updateCommand = new UpdateAssignmentCommand { Request = updateAssignmentRequest };
+            var updateCommand = new UpdateAssignmentCommand { Request = updateAssignmentRequest, Id = id };
 
             var response = await mediator.Send(updateCommand);
+
+            return response.Match(
+                success => Results.Ok(success),
+                error => error switch
+                {
+                    RequestValidationError => Results.BadRequest(error.Message),
+                    UnknownError => Results.Problem(error.Message),
+                    AssignmentDoesntExistError => Results.NotFound(),
+                    _ => Results.Problem(error.Message)
+                });
+        }
+        private static async Task<IResult> AddCommentToAssignment(string id, AddCommentToAssignmentRequest addCommentToAssignmentRequest, IMediator mediator)
+        {
+            var addCommentCommand = new AddCommentToAssignmentCommand { Request = addCommentToAssignmentRequest, Id = id };
+
+            var response = await mediator.Send(addCommentCommand);
 
             return response.Match(
                 success => Results.Ok(success),

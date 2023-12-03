@@ -1,4 +1,4 @@
-﻿using TaskManager.Domain.Entities;
+﻿using TaskManager.Domain.Entities.Assignments;
 
 namespace TaskManager.Application.Responses.Assignments
 {

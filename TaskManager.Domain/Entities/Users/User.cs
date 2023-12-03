@@ -1,7 +1,7 @@
 ﻿using TaskManager.Domain.Entities.Shared;
 using TaskManager.Domain.Enums;
 
-namespace TaskManager.Domain.Entities
+namespace TaskManager.Domain.Entities.Users
 {
     public class User : MongoEntity
     {

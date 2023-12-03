@@ -12,7 +12,7 @@ namespace TaskManager.API.DependencyInjection
         {
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
-            builder.Services.AddValidatorsFromAssemblyContaining<InsertProjectRequestValidator>(); 
+            builder.Services.AddValidatorsFromAssemblyContaining<InsertProjectCommandValidator>(); 
         } 
     }
 }

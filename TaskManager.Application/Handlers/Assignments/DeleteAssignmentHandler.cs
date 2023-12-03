@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
 using TaskManager.Application.Commands.Assignments;
-using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.Responses.Assignments;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
@@ -9,48 +8,48 @@ using TaskManager.Domain.Repositories;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class DeleteAssignmentHandler(IAssignmentRepository assignmentRepository, IValidator<DeleteAssignmentRequest> assignmentValidator)
+    public class DeleteAssignmentHandler(IAssignmentRepository assignmentRepository, IValidator<DeleteAssignmentCommand> assignmentValidator)
         : IRequestHandler<DeleteAssignmentCommand, Result<DeleteAssignmentResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
-        public IValidator<DeleteAssignmentRequest> AssignmentValidator { get; set; } = assignmentValidator;
+        public IValidator<DeleteAssignmentCommand> AssignmentValidator { get; set; } = assignmentValidator;
 
         public Task<Result<DeleteAssignmentResponse, Error>> Handle(DeleteAssignmentCommand command, CancellationToken cancellationToken)
         {
-            var response = ValidateRequest(command.Request)
+            var response = ValidateRequest(command)
                 .Bind(CheckAssignmentExistance)
                 .Bind(DeleteAssignment);
 
             return Task.FromResult(response);
         }
 
-        private Result<DeleteAssignmentRequest, Error> ValidateRequest(DeleteAssignmentRequest request)
+        private Result<DeleteAssignmentCommand, Error> ValidateRequest(DeleteAssignmentCommand command)
         {
-            var validationResult = AssignmentValidator.ValidateAsync(request).Result;
+            var validationResult = AssignmentValidator.ValidateAsync(command).Result;
 
             if (!validationResult.IsValid)
             {
                 return new RequestValidationError(validationResult.Errors);
             }
 
-            return request;
+            return command;
         }
-        private Result<DeleteAssignmentRequest, Error> CheckAssignmentExistance(DeleteAssignmentRequest request)
+        private Result<DeleteAssignmentCommand, Error> CheckAssignmentExistance(DeleteAssignmentCommand command)
         {
-            var assignmentExists = AssignmentRepository.CheckExistanceById(request.Id).Result;
+            var assignmentExists = AssignmentRepository.CheckExistanceById(command.Id).Result;
 
             if (!assignmentExists)
             {
                 return new AssignmentDoesntExistError();
             }
 
-            return request;
+            return command;
         }
-        private Result<DeleteAssignmentResponse, Error> DeleteAssignment(DeleteAssignmentRequest request)
+        private Result<DeleteAssignmentResponse, Error> DeleteAssignment(DeleteAssignmentCommand command)
         {
-            var result = AssignmentRepository.DeleteAsync(request.Id).Result;
+            var result = AssignmentRepository.DeleteAsync(command.Id).Result;
 
-            return result.DeletedCount > 0 ? new DeleteAssignmentResponse { } : new UnknownError("Failed to delete the informed assignment.");
+            return result.DeletedCount > 0 ? new DeleteAssignmentResponse { } : new UnknownError("Falha ao deletar a tarefa informada.");
         }
     }
 }

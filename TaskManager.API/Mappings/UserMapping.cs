@@ -31,10 +31,8 @@ namespace TaskManager.API.Mappings
         }  
 
         private static async Task<IResult> GetUserProjects(string id, IMediator mediator)
-        {
-            var request = new GetUserProjectsRequest { UserId = id};
-
-            var getCommand = new GetUserProjectsCommand { Request = request };
+        {  
+            var getCommand = new GetUserProjectsCommand { UserId = id};
 
             var response = await mediator.Send(getCommand);
 

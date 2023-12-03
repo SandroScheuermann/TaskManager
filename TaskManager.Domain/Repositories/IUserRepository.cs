@@ -1,4 +1,4 @@
-﻿using TaskManager.Domain.Entities;
+﻿using TaskManager.Domain.Entities.Users;
 
 namespace TaskManager.Domain.Repositories
 {
