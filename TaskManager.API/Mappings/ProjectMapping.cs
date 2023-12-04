@@ -27,8 +27,7 @@ namespace TaskManager.API.Mappings
                     error => error switch
                     {
                         RequestValidationError => Results.BadRequest(error.Message),
-                        AssignmentNotFoundError => Results.NotFound(error.Message),
-                        ProjectNotFoundError => Results.NotFound(error.Message),
+                        AssignmentNotFoundError => Results.NotFound(error.Message), 
                         _ => Results.Problem(error.Message)
                     });
         }
@@ -56,7 +55,7 @@ namespace TaskManager.API.Mappings
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
-                    ProjectNotFoundError => Results.NotFound(),
+                    ProjectNotFoundError => Results.NotFound(error.Message),
                     UnknownError => Results.Problem(error.Message),
                     _ => Results.Problem(error.Message)
                 });

@@ -8,6 +8,6 @@ namespace TaskManager.Application.Commands.Users
     {
         public required string UserId { get; set; }
 
-        public required string AdminUserId { get; set; }
+        public required string ManagerUserId { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace TaskManager.Application.Handlers.Users
         }
         private Result<GetUserProjectsResponse, Error> GetProjectsByUserId(GetUserProjectsCommand command)
         {
-            var projects = ProjectRepository.GetProjectsByUserIdAsync(command.UserId).Result;
+            var projects = ProjectRepository.GetProjectsByUserIdAsync(command.UserId).Result; 
 
             return new GetUserProjectsResponse { UserId = command.UserId, UserProjects = projects };
         }

@@ -43,7 +43,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     ProjectNotFoundError => Results.NotFound(error.Message),
-                    MaximumNumberOfAssignmentsError => Results.BadRequest(error.Message),
+                    MaximumNumberOfAssignmentsError => Results.UnprocessableEntity(error.Message),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -96,8 +96,8 @@ namespace TaskManager.API.Mappings
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
+                    AssignmentNotFoundError => Results.NotFound(error.Message),
                     UnknownError => Results.Problem(error.Message),
-                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -122,8 +122,8 @@ namespace TaskManager.API.Mappings
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
+                    AssignmentNotFoundError => Results.NotFound(error.Message),
                     UnknownError => Results.Problem(error.Message),
-                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -148,8 +148,8 @@ namespace TaskManager.API.Mappings
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
+                    AssignmentNotFoundError => Results.NotFound(error.Message),
                     UnknownError => Results.Problem(error.Message),
-                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }

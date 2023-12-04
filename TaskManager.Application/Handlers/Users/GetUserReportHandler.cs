@@ -42,7 +42,7 @@ namespace TaskManager.Application.Handlers.Users
         }
         private Result<GetUserReportCommand, Error> CheckUserPermission(GetUserReportCommand command)
         {
-            var user = UserRepository.GetByIdAsync(command.AdminUserId).Result;
+            var user = UserRepository.GetByIdAsync(command.ManagerUserId).Result;
 
             if (user.Id != null)
             {
