@@ -1,28 +1,37 @@
+# Tecnologias utilizadas
+
+- .NET 8.0
+- Minimal API
+- MongoDB
+- Arquitetura Mediator com Mediatr
+- FluentValidator para validações de commands/events
+- Testes com NUnit e FluentAssertions
+
 # Execução do projeto
 
-Abrir algum prompt de comando na pasta raiz, executar o comando "docker-compose up", a API vai estar disponível no localhost:8080, e o banco no localhost:27017. Deixei o swagger habilitado em release, para facilitar os testes.
+1. Abrir algum prompt de comando na pasta raiz.
+2. Executar o comando "docker-compose up".
+3. A API vai estar disponível no localhost:8080, e o banco no localhost:27017.
+4. Swagger habilitado em release, para facilitar os testes.
  
-
 # Uso dos endpoints 
 
-**Em alguns endpoints em que eu usaria informações do token JWT, por exemplo, para linkar informações do usuário, utilizei o próprio Id da entidade User.
-
-POST /assignment : Usado na criação de tarefas, retorna o ObjectId gerado pelo mongodb. \
+POST /assignment : Cria uma tarefa, retorna ObjectId. \
 GET /assignment : Obtém todas as tarefas. \
-GET /assignment/id : Obtém tarefas por id. \
-DELETE /assignment/id : ... \
-PATCH /assignment/id : Atualiza informações da tarefa, como é um PATCH, atualiza o que for enviado.\
-PATCH /assignment/id/comments : Adiciona comentários a uma tarefa \
+GET /assignment/id : Obtém tarefa por id. \
+DELETE /assignment/id : Remove tarefa por id. \
+PATCH /assignment/id : Atualiza tarefa (PATCH para atualização parcial). \
+PATCH /assignment/id/comments : Adiciona comentários à tarefa. 
 ___
-POST /projects : Insere um novo projeto. \  
-GET /projects : Obtém todas os projetos. \
-DELETE /projects/id : ... \
-GET /projects/id/assignments : Obtém todas as tarefas linkadas a um projeto específico\
+POST /projects : Cria um projeto.  
+GET /projects : Obtém todos os projetos. \
+DELETE /projects/id : Remove projeto por id. \
+GET /projects/id/assignments : Obtém tarefas vinculadas a um projeto. 
 
 ___
-POST /users : Insere um novo usuário.\
-GET /users/id/projects : Obtém todos os projetos linkados a um usuário específico.\
-GET /users/managerUserId/id/assignments/report : Obtém o relatório de atividades concluídas nos últimos 30 dias. Nesse caso fiz o endpoint precisando de dois ids, um autenticador, e o id específico , por conta do token JWT que citei no início.
+POST /users : Cria um usuário.\
+GET /users/id/projects : Obtém projetos vinculados a um usuário.\
+GET /users/managerUserId/id/assignments/report : Obtém relatório de atividades nos últimos 30 dias.
 
 # Histórico de alterações
 
@@ -34,3 +43,4 @@ Toda criação, update, delete e comentário adicionado na tarefa, é guardado e
 - Como a aplicação deve agir quando uma tarefa expira?
 - Quando uma tarefa é finalizada, o status dela pode ser alterado novamente?
 - No requisito : "Remoção de tarefas - remover uma tarefa de um projeto", atulamente, a API se comporta deletando a tarefa, tendo em vista que não faz sentido ter uma tarefa sem projeto, seguimos nessa linha, ou é necessário somente remover o link entre as entidades?
+ 
