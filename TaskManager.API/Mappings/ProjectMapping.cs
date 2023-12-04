@@ -14,6 +14,8 @@ namespace TaskManager.API.Mappings
             group.MapPost("/", InsertProject);
             group.MapGet("/", GetProjects); 
             group.MapDelete("/{id}", DeleteProject);
+            group.MapGet("/{id}/assignments", GetProjectAssignments);
+
         }
 
         private static async Task<IResult> InsertProject(InsertProjectRequest insertProjectRequest, IMediator mediator)
@@ -60,5 +62,23 @@ namespace TaskManager.API.Mappings
                     _ => Results.Problem(error.Message)
                 });
         }
+
+
+        private static async Task<IResult> GetProjectAssignments(string id, IMediator mediator)
+        {
+            var getCommand = new GetProjectAssignmentsCommand { ProjectId = id };
+
+            var response = await mediator.Send(getCommand);
+
+            return response.Match(
+                    success => Results.Ok(success),
+                    error => error switch
+                    {
+                        RequestValidationError => Results.BadRequest(error.Message),
+                        UserNotFoundError => Results.NotFound(error.Message),
+                        _ => Results.Problem(error.Message)
+                    });
+        }
+
     }
 }

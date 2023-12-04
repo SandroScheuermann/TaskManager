@@ -34,6 +34,17 @@ namespace TaskManger.Infra.Repositories.Assignments
             var update = Builders<Assignment>.Update.Push(doc => doc.Comments, comment);
 
             return await Collection.UpdateOneAsync(filter, update);
-        } 
+        }
+
+        public async Task<IEnumerable<Assignment>> GetAssignmentsByProjectId(string userId)
+        {
+            var filter = Builders<Assignment>.Filter.Eq(a => a.ProjectId, userId);
+
+            var cursor = await Collection.FindAsync(filter);
+
+            var assignments = await cursor.ToListAsync();
+
+            return assignments;
+        }
     }
 }

@@ -12,8 +12,7 @@ namespace TaskManager.API.Mappings
             var group = app.MapGroup("/users");
 
             group.MapPost("/", InsertUser);
-            group.MapGet("/{id}/projects", GetUserProjects);
-
+            group.MapGet("/{id}/projects", GetUserProjects); 
             group.MapGet("/{managerUserId}/{id}/assignments/report", GetUserAssignmentsReport);
         }
 

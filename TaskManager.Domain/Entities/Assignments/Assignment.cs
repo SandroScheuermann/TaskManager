@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System.Diagnostics.CodeAnalysis;
 using TaskManager.Domain.Entities.Shared;
 using TaskManager.Domain.Enums;
 
@@ -23,10 +22,5 @@ namespace TaskManager.Domain.Entities.Assignments
         public required AssignmentStatusEnum? Status { get; set; }
 
         public required AssignmentPriorityEnum? Priority { get; set; }
-         
-        //public override string ToString()
-        //{
-        //    return $"Id : {Id}, Título : {Title}, Status: {Status}";
-        //}
     }
 }

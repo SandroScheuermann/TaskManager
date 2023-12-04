@@ -5,7 +5,6 @@ namespace TaskManager.Domain.Repositories.Projects
 {
     public interface IProjectRepository : IMongoRepository<Project>
     {
-        public Task<IEnumerable<Project>> GetProjectsByUserIdAsync(string userId);
-
+        public Task<IEnumerable<Project>> GetProjectsByUserIdAsync(string userId); 
     }
 }

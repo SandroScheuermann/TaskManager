@@ -8,6 +8,7 @@ namespace TaskManager.Domain.Repositories.Assignments
     {
         public Task<IEnumerable<Assignment>> GetPendingAssignmentsByProjectId(string projectId);
         public Task<long> GetAssignmentsCountByProjectId(string projectId);
-        public Task<UpdateResult> AddAssignmentComment(string assignmentId, Comment comment);
+        public Task<UpdateResult> AddAssignmentComment(string assignmentId, Comment comment);  
+        public Task<IEnumerable<Assignment>> GetAssignmentsByProjectId(string userId); 
     }
 }
