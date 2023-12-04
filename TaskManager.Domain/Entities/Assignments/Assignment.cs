@@ -22,5 +22,10 @@ namespace TaskManager.Domain.Entities.Assignments
         public required AssignmentStatusEnum? Status { get; set; }
 
         public required AssignmentPriorityEnum? Priority { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id : {Id}, Título : {Title}, Status: {Status}";
+        }
     }
 }
