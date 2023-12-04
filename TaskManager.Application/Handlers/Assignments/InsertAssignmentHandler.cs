@@ -10,8 +10,11 @@ using TaskManager.Domain.Repositories.Projects;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class InsertAssignmentHandler(IAssignmentRepository assignmentRepository, IProjectRepository projectRepository, IValidator<InsertAssignmentCommand> assignmentValidator)
-        : IRequestHandler<InsertAssignmentCommand, Result<InsertAssignmentResponse, Error>>
+    public class InsertAssignmentHandler(
+        IAssignmentRepository assignmentRepository, 
+        IProjectRepository projectRepository, 
+        IValidator<InsertAssignmentCommand> assignmentValidator) : 
+        IRequestHandler<InsertAssignmentCommand, Result<InsertAssignmentResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
         public IProjectRepository ProjectRepository { get; set; } = projectRepository;

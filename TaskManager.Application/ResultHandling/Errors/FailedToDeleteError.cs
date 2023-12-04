@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Application.ResultHandling.Errors
 {
-    public class FailedToDeleteError() : Error("Erro ao deletar entidade")
+    public class FailedToDeleteError() : Error("Erro ao deletar entidade.")
     {
     }
 }

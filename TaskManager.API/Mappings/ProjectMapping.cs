@@ -56,7 +56,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     ProjectNotFoundError => Results.NotFound(error.Message),
-                    UnknownError => Results.Problem(error.Message),
+                    FailedToDeleteError => Results.Problem(error.Message),
                     _ => Results.Problem(error.Message)
                 });
         }

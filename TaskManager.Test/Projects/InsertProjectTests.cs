@@ -21,9 +21,7 @@ namespace TaskManager.Test.Projects
 
         private InsertProjectHandler _insertAssignmentHandler;
 
-        private InsertProjectCommand _insertAssignmentCommand;
-
-        private InsertProjectRequest _insertAssignmentRequest;
+        private InsertProjectCommand _insertAssignmentCommand; 
 
         [SetUp]
         public void Setup()
@@ -36,17 +34,15 @@ namespace TaskManager.Test.Projects
 
             _projectRepository = new(); 
 
-            _insertProjectValidator = new();
-
-            _insertAssignmentRequest = new InsertProjectRequest
-            {
-                ProjectName = "ProjecNameTest",
-                UserId = It.IsAny<ObjectId>().ToString(),
-            };
+            _insertProjectValidator = new(); 
 
             _insertAssignmentCommand = new InsertProjectCommand
             { 
-                Request = _insertAssignmentRequest,
+                Request = new InsertProjectRequest
+                {
+                    ProjectName = "ProjecNameTest",
+                    UserId = It.IsAny<ObjectId>().ToString(),
+                }
             };
 
             _insertAssignmentHandler = new(_projectRepository.Object, _userRepository.Object, _insertProjectValidator);

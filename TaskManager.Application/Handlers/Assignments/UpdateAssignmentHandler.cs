@@ -11,12 +11,11 @@ namespace TaskManager.Application.Handlers.Assignments
 {
     public class UpdateAssignmentHandler(
         IAssignmentRepository assignmentRepository, 
-        IValidator<UpdateAssignmentCommand> assignmentValidator,
-        IMediator mediator) : IRequestHandler<UpdateAssignmentCommand, Result<UpdateAssignmentResponse, Error>>
+        IValidator<UpdateAssignmentCommand> assignmentValidator) : 
+        IRequestHandler<UpdateAssignmentCommand, Result<UpdateAssignmentResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository; 
         public IValidator<UpdateAssignmentCommand> AssignmentValidator { get; set; } = assignmentValidator; 
-        public IMediator Mediator { get; set; } = mediator; 
 
         public Task<Result<UpdateAssignmentResponse, Error>> Handle(UpdateAssignmentCommand command, CancellationToken cancellationToken)
         {
@@ -65,9 +64,9 @@ namespace TaskManager.Application.Handlers.Assignments
 
             var updateResult = AssignmentRepository.UpdateAsync(updatedAssignment).Result;
 
-            if (updateResult.ModifiedCount < 0)
+            if (updateResult.ModifiedCount < 1)
             {
-                return new UnknownError();
+                return new FailedToUpdateError();
             } 
 
             var response = new UpdateAssignmentResponse()

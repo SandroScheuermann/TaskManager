@@ -97,9 +97,9 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     AssignmentNotFoundError => Results.NotFound(error.Message),
-                    UnknownError => Results.Problem(error.Message),
+                    FailedToDeleteError => Results.Problem(error.Message),
                     _ => Results.Problem(error.Message)
-                });
+                }); ;
         }
         private static async Task<IResult> UpdateAssignment(string id, UpdateAssignmentRequest updateAssignmentRequest, IMediator mediator)
         {
@@ -123,7 +123,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     AssignmentNotFoundError => Results.NotFound(error.Message),
-                    UnknownError => Results.Problem(error.Message),
+                    FailedToUpdateError => Results.Problem(error.Message),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -149,7 +149,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     AssignmentNotFoundError => Results.NotFound(error.Message),
-                    UnknownError => Results.Problem(error.Message),
+                    FailedToAddCommentError => Results.Problem(error.Message),
                     _ => Results.Problem(error.Message)
                 });
         }

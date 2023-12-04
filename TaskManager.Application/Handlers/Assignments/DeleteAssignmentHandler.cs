@@ -8,8 +8,10 @@ using TaskManager.Domain.Repositories.Assignments;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class DeleteAssignmentHandler(IAssignmentRepository assignmentRepository, IValidator<DeleteAssignmentCommand> assignmentValidator)
-        : IRequestHandler<DeleteAssignmentCommand, Result<DeleteAssignmentResponse, Error>>
+    public class DeleteAssignmentHandler(
+        IAssignmentRepository assignmentRepository, 
+        IValidator<DeleteAssignmentCommand> assignmentValidator) : 
+        IRequestHandler<DeleteAssignmentCommand, Result<DeleteAssignmentResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
         public IValidator<DeleteAssignmentCommand> AssignmentValidator { get; set; } = assignmentValidator;
@@ -49,7 +51,7 @@ namespace TaskManager.Application.Handlers.Assignments
         {
             var result = AssignmentRepository.DeleteAsync(command.Id).Result;
 
-            return result.DeletedCount > 0 ? new DeleteAssignmentResponse { } : new UnknownError("Falha ao deletar a tarefa informada.");
+            return result.DeletedCount > 0 ? new DeleteAssignmentResponse { } : new FailedToDeleteError();
         }
     }
 }

@@ -8,8 +8,10 @@ using TaskManager.Domain.Repositories.Assignments;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class GetAssignmentByIdHandler(IAssignmentRepository assignmentRepository, IValidator<GetAssignmentByIdCommand> assignmentValidator)
-        : IRequestHandler<GetAssignmentByIdCommand, Result<GetAssignmentByIdResponse, Error>>
+    public class GetAssignmentByIdHandler(
+        IAssignmentRepository assignmentRepository,
+        IValidator<GetAssignmentByIdCommand> assignmentValidator) : 
+        IRequestHandler<GetAssignmentByIdCommand, Result<GetAssignmentByIdResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
         public IValidator<GetAssignmentByIdCommand> AssignmentValidator { get; set; } = assignmentValidator;

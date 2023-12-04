@@ -26,18 +26,16 @@ namespace TaskManager.Test.Users
         public void Setup()
         {
             _userRepository = new();
-             
-            _insertUserValidator = new();
 
-            _insertUserRequest = new InsertUserRequest 
+            _insertUserValidator = new(); 
+
+            _insertUserCommand = new InsertUserCommand
             {
-                UserName = "UserNameTest",
-                UserRole = UserRoleEnum.Manager
-            };
-
-            _insertUserCommand = new InsertUserCommand 
-            { 
-                Request = _insertUserRequest,
+                Request = new InsertUserRequest
+                {
+                    UserName = "UserNameTest",
+                    UserRole = UserRoleEnum.Manager
+                }
             };
 
             _insertUserHandler = new(_userRepository.Object, _insertUserValidator);
@@ -46,7 +44,7 @@ namespace TaskManager.Test.Users
         [Test]
         public async Task Should_Be_Success()
         {
-            var response = await _insertUserHandler.Handle(_insertUserCommand, default); 
+            var response = await _insertUserHandler.Handle(_insertUserCommand, default);
 
             response.Error.Should().BeNull();
         }
@@ -57,9 +55,9 @@ namespace TaskManager.Test.Users
         {
             _insertUserCommand.Request.UserName = null;
 
-            var response = await _insertUserHandler.Handle(_insertUserCommand, default);  
+            var response = await _insertUserHandler.Handle(_insertUserCommand, default);
 
-            response.Error.Should().BeOfType<RequestValidationError>(); 
+            response.Error.Should().BeOfType<RequestValidationError>();
         }
 
     }

@@ -10,8 +10,10 @@ using TaskManager.Domain.Repositories.Assignments;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class AddCommentToAssignmentHandler(IAssignmentRepository assignmentRepository, IValidator<AddCommentToAssignmentCommand> assignmentValidator)
-        : IRequestHandler<AddCommentToAssignmentCommand, Result<AddCommentToAssignmentResponse, Error>>
+    public class AddCommentToAssignmentHandler(
+        IAssignmentRepository assignmentRepository,
+        IValidator<AddCommentToAssignmentCommand> assignmentValidator) : 
+        IRequestHandler<AddCommentToAssignmentCommand, Result<AddCommentToAssignmentResponse, Error>>
     {
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
         public IValidator<AddCommentToAssignmentCommand> AssignmentValidator { get; set; } = assignmentValidator;
@@ -58,7 +60,7 @@ namespace TaskManager.Application.Handlers.Assignments
                 return new AddCommentToAssignmentResponse { Id = comment.Id };
             }
 
-            return new UnknownError("Erro ao adicionar comentário");
+            return new FailedToAddCommentError();
         }
     }
 }

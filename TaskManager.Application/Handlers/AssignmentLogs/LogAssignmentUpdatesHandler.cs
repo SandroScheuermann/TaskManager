@@ -6,9 +6,10 @@ using TaskManager.Domain.Repositories.Assignments;
 
 namespace TaskManager.Application.Handlers.AssignmentLogs
 {
-    public class LogAssignmentUpdatesEventHandler(IAssignmentLogRepository assignmentLogRepository,
-        IAssignmentRepository assignmentRepository)
-        : IRequestHandler<LogAssignmentUpdatesEvent, Result<Task, Error>>
+    public class LogAssignmentUpdatesEventHandler(
+        IAssignmentLogRepository assignmentLogRepository,
+        IAssignmentRepository assignmentRepository) : 
+        IRequestHandler<LogAssignmentUpdatesEvent, Result<Task, Error>>
     {
         public IAssignmentLogRepository AssignmentLogRepository { get; set; } = assignmentLogRepository;
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
