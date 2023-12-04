@@ -34,7 +34,7 @@ namespace TaskManager.Application.Handlers.Users
 
             return request;
         }
-        private Result<InsertUserResponse, Error> CreateAndInsertUser(InsertUserCommand command)
+        public Result<InsertUserResponse, Error> CreateAndInsertUser(InsertUserCommand command)
         {
             var user = new User()
             {
