@@ -24,6 +24,10 @@ POST /users : Insere um novo usuário.\
 GET /users/id/projects : Obtém todos os projetos linkados a um usuário específico.\
 GET /users/managerUserId/id/assignments/report : Obtém o relatório de atividades concluídas nos últimos 30 dias. Nesse caso fiz o endpoint precisando de dois ids, um autenticador, e o id específico , por conta do token JWT que citei no início.
 
+# Histórico de alterações
+
+Toda criação, update, delete e comentário adicionado na tarefa, é guardado em uma tabela do banco, dessa forma temos o tracking completo do documento desde sua criação.
+
 # Questões para a fase de refinamento
 
 - Devemos manter os dados no banco após o "dono" deles ter sido removido? (Ex : Ao remover um projeto, as tarefas linkadas devem permanecer no banco?)
