@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using TaskManager.Application.Commands.Assignments;
+using TaskManager.Application.Events.AssignmentLogs;
 using TaskManager.Application.Requests.Assignments;
 using TaskManager.Application.ResultHandling.Errors;
+using TaskManager.Domain.Enums;
 
 namespace TaskManager.API.Mappings
 {
@@ -19,14 +21,24 @@ namespace TaskManager.API.Mappings
             group.MapPatch("/{id}/comments", AddCommentToAssignment);
         }
 
-        private static async Task<IResult> InsertAssignment(InsertAssignmentRequest insertAssignmentRequest, IMediator Mediator)
+        private static async Task<IResult> InsertAssignment(InsertAssignmentRequest insertAssignmentRequest, IMediator mediator)
         {
             var insertCommand = new InsertAssignmentCommand { Request = insertAssignmentRequest };
 
-            var response = await Mediator.Send(insertCommand);
+            var response = await mediator.Send(insertCommand);
 
             return response.Match(
-                success => Results.Ok(success),
+            success =>
+                {
+                    mediator.Send(new LogAssignmentUpdatesEvent
+                    {
+                        AssignmentId = response.Value!.Id,
+                        OperationType = OperationTypeEnum.Create,
+                        UserId = insertAssignmentRequest.UserId,
+                    });
+
+                    return Results.Ok(success);
+                },
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
@@ -49,7 +61,7 @@ namespace TaskManager.API.Mappings
                 });
         }
         private static async Task<IResult> GetAssignmentById(string id, IMediator mediator)
-        {  
+        {
             var getByIdCommand = new GetAssignmentByIdCommand { Id = id };
 
             var response = await mediator.Send(getByIdCommand);
@@ -63,14 +75,24 @@ namespace TaskManager.API.Mappings
                     _ => Results.Problem(error.Message)
                 });
         }
-        private static async Task<IResult> DeleteAssignment(string id, IMediator mediator)
-        {  
-            var deleteCommand = new DeleteAssignmentCommand { Id = id };
+        private static async Task<IResult> DeleteAssignment(string id, string userId, IMediator mediator)
+        {
+            var deleteCommand = new DeleteAssignmentCommand { Id = id, UserId = userId };
 
             var response = await mediator.Send(deleteCommand);
 
             return response.Match(
-                success => Results.Ok(success),
+                success =>
+                {
+                    mediator.Send(new LogAssignmentUpdatesEvent
+                    {
+                        AssignmentId = id,
+                        OperationType = OperationTypeEnum.Delete,
+                        UserId = userId,
+                    });
+
+                    return Results.Ok(success);
+                },
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
@@ -86,7 +108,17 @@ namespace TaskManager.API.Mappings
             var response = await mediator.Send(updateCommand);
 
             return response.Match(
-                success => Results.Ok(success),
+                success =>
+                {
+                    mediator.Send(new LogAssignmentUpdatesEvent
+                    {
+                        AssignmentId = id,
+                        OperationType = OperationTypeEnum.Update,
+                        UserId = updateAssignmentRequest.UserId
+                    });
+
+                    return Results.Ok(success);
+                },
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
@@ -102,7 +134,17 @@ namespace TaskManager.API.Mappings
             var response = await mediator.Send(addCommentCommand);
 
             return response.Match(
-                success => Results.Ok(success),
+                success =>
+                {
+                    mediator.Send(new LogAssignmentUpdatesEvent
+                    {
+                        AssignmentId = id,
+                        OperationType = OperationTypeEnum.Comment,
+                        UserId = addCommentToAssignmentRequest.UserId
+                    });
+
+                    return Results.Ok(success);
+                },
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),

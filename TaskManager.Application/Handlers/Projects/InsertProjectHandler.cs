@@ -5,7 +5,9 @@ using TaskManager.Application.Requests.Projects;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
 using TaskManager.Domain.Entities.Projects;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Assignments;
+using TaskManager.Domain.Repositories.Projects;
+using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Application.Handlers.Projects
 {

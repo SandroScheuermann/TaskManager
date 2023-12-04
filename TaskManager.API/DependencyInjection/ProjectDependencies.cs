@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using TaskManager.Application.Validators.Projects;
 using TaskManager.Application.Validators.Users;
-using TaskManager.Domain.Repositories;
-using TaskManger.Infra.DataAccess;
+using TaskManager.Domain.Repositories.Projects;
+using TaskManger.Infra.Repositories.Projects;
 
 namespace TaskManager.API.DependencyInjection
 {

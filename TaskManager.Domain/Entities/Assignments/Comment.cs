@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace TaskManager.Domain.Entities.Assignments
 {
-    public class Comment
+    public class Comment 
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public required string? Id { get; set; }

@@ -6,7 +6,7 @@ using TaskManager.Application.Responses.Users;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
 using TaskManager.Domain.Entities.Users;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Application.Handlers.Users
 {

@@ -2,7 +2,7 @@
 using TaskManager.Application.Commands.Assignments;
 using TaskManager.Application.Responses.Assignments;
 using TaskManager.Application.ResultHandling;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Assignments;
 
 namespace TaskManager.Application.Handlers.Assignments
 {

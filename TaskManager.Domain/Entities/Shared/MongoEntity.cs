@@ -7,6 +7,6 @@ namespace TaskManager.Domain.Entities.Shared
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public required string Id { get; set; }
+        public required string? Id { get; set; }
     }
 }

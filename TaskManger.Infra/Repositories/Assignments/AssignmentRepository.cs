@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using Muscler.Infra.DataAccess.Shared;
 using TaskManager.Application.ConfigurationModels;
 using TaskManager.Domain.Entities.Assignments;
 using TaskManager.Domain.Enums;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Assignments;
+using TaskManger.Infra.Repositories.Shared;
 
-namespace TaskManger.Infra.DataAccess
+namespace TaskManger.Infra.Repositories.Assignments
 {
     public class AssignmentRepository(IOptions<DefaultSettings> settings) : MongoRepository<Assignment>(settings), IAssignmentRepository
     {
@@ -15,7 +14,7 @@ namespace TaskManger.Infra.DataAccess
         {
             var filter = Builders<Assignment>.Filter.Eq(a => a.ProjectId, projectId);
 
-            return await Collection.CountDocumentsAsync(filter);  
+            return await Collection.CountDocumentsAsync(filter);
         }
 
         public async Task<IEnumerable<Assignment>> GetPendingAssignmentsByProjectId(string projectId)
@@ -30,7 +29,7 @@ namespace TaskManger.Infra.DataAccess
         }
 
         public async Task<UpdateResult> AddAssignmentComment(string assignmentId, Comment comment)
-        {  
+        {
             var filter = Builders<Assignment>.Filter.Eq(doc => doc.Id, assignmentId);
             var update = Builders<Assignment>.Update.Push(doc => doc.Comments, comment);
 

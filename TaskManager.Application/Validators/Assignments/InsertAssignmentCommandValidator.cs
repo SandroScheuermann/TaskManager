@@ -9,8 +9,12 @@ namespace TaskManager.Application.Validators.Assignments
         public InsertAssignmentCommandValidator()
         {
             RuleFor(command => command.Request.ProjectId.ToString())
+                .NotEmpty().WithMessage("O ID do usuário é um campo obrigatório.")
+                .MustBeValidObjectId("O ID do usuário não é um ObjectId válido..");
+
+            RuleFor(command => command.Request.ProjectId.ToString())
                 .NotEmpty().WithMessage("O ID do projeto é um campo obrigatório.")
-                .MustBeValidObjectId("O ID do projeto não é um ObjectId válido..");
+                .MustBeValidObjectId("O ID do projeto não é um ObjectId válido.."); 
 
             RuleFor(command => command.Request.Title)
                 .NotEmpty().WithMessage("O título é um campo obrigatório.")

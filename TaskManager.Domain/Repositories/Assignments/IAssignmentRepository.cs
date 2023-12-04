@@ -1,7 +1,8 @@
 ﻿using MongoDB.Driver;
 using TaskManager.Domain.Entities.Assignments;
+using TaskManager.Domain.Repositories.Shared;
 
-namespace TaskManager.Domain.Repositories
+namespace TaskManager.Domain.Repositories.Assignments
 {
     public interface IAssignmentRepository : IMongoRepository<Assignment>
     {

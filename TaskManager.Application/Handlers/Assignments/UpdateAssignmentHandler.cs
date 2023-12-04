@@ -5,15 +5,18 @@ using TaskManager.Application.Responses.Assignments;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
 using TaskManager.Domain.Entities.Assignments;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Assignments;
 
 namespace TaskManager.Application.Handlers.Assignments
 {
-    public class UpdateAssignmentHandler(IAssignmentRepository assignmentRepository, IValidator<UpdateAssignmentCommand> assignmentValidator)
-        : IRequestHandler<UpdateAssignmentCommand, Result<UpdateAssignmentResponse, Error>>
+    public class UpdateAssignmentHandler(
+        IAssignmentRepository assignmentRepository, 
+        IValidator<UpdateAssignmentCommand> assignmentValidator,
+        IMediator mediator) : IRequestHandler<UpdateAssignmentCommand, Result<UpdateAssignmentResponse, Error>>
     {
-        public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
-        public IValidator<UpdateAssignmentCommand> AssignmentValidator { get; set; } = assignmentValidator;
+        public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository; 
+        public IValidator<UpdateAssignmentCommand> AssignmentValidator { get; set; } = assignmentValidator; 
+        public IMediator Mediator { get; set; } = mediator; 
 
         public Task<Result<UpdateAssignmentResponse, Error>> Handle(UpdateAssignmentCommand command, CancellationToken cancellationToken)
         {
@@ -60,12 +63,12 @@ namespace TaskManager.Application.Handlers.Assignments
                 Comments = null,
             };
 
-            var result = AssignmentRepository.UpdateAsync(updatedAssignment).Result;
+            var updateResult = AssignmentRepository.UpdateAsync(updatedAssignment).Result;
 
-            if (result.ModifiedCount < 0)
+            if (updateResult.ModifiedCount < 0)
             {
                 return new UnknownError();
-            }
+            } 
 
             var response = new UpdateAssignmentResponse()
             {

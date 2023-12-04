@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using Muscler.Infra.DataAccess.Shared;
 using TaskManager.Application.ConfigurationModels;
 using TaskManager.Domain.Entities.Projects;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Projects;
+using TaskManger.Infra.Repositories.Shared;
 
-namespace TaskManger.Infra.DataAccess
+namespace TaskManger.Infra.Repositories.Projects
 {
     public class ProjectRepository(IOptions<DefaultSettings> settings) : MongoRepository<Project>(settings), IProjectRepository
     {
@@ -18,7 +17,7 @@ namespace TaskManger.Infra.DataAccess
 
             var projects = await cursor.ToListAsync();
 
-            return projects; 
+            return projects;
         }
     }
 }

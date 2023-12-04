@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using TaskManager.Application.ConfigurationModels;
 using TaskManager.Domain.Entities.Shared;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Shared;
 
-namespace Muscler.Infra.DataAccess.Shared
+namespace TaskManger.Infra.Repositories.Shared
 {
     public class MongoRepository<T> : IMongoRepository<T> where T : MongoEntity
     {
@@ -21,6 +20,11 @@ namespace Muscler.Infra.DataAccess.Shared
         public async Task InsertAsync(T item)
         {
             await Collection.InsertOneAsync(item);
+        } 
+
+        public async Task InserManyAsync(IEnumerable<T> items)
+        {
+            await Collection.InsertManyAsync(items);
         }
 
         public async Task<DeleteResult> DeleteAsync(string id)

@@ -12,7 +12,7 @@ namespace TaskManager.API.Mappings
             var group = app.MapGroup("/users");
 
             group.MapPost("/", InsertUser);
-            group.MapGet("/{id}/projects", GetUserProjects); 
+            group.MapGet("/{id}/projects", GetUserProjects);
         }
 
         private static async Task<IResult> InsertUser(InsertUserRequest insertUserRequest, IMediator mediator)
@@ -25,14 +25,13 @@ namespace TaskManager.API.Mappings
                     success => Results.Ok(success),
                     error => error switch
                     {
-                        RequestValidationError => Results.BadRequest(error.Message), 
+                        RequestValidationError => Results.BadRequest(error.Message),
                         _ => Results.Problem(error.Message)
                     });
-        }  
-
+        }
         private static async Task<IResult> GetUserProjects(string id, IMediator mediator)
-        {  
-            var getCommand = new GetUserProjectsCommand { UserId = id};
+        {
+            var getCommand = new GetUserProjectsCommand { UserId = id };
 
             var response = await mediator.Send(getCommand);
 

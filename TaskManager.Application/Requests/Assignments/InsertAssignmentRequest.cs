@@ -7,6 +7,8 @@ namespace TaskManager.Application.Requests.Assignments
     {
         public required string ProjectId { get; set; }
 
+        public required string UserId { get; set; }
+
         public required string Title { get; set; }
 
         public required string Description { get; set; }

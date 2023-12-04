@@ -4,7 +4,8 @@ using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Responses.Projects;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Assignments;
+using TaskManager.Domain.Repositories.Projects;
 
 namespace TaskManager.Application.Handlers.Projects
 {

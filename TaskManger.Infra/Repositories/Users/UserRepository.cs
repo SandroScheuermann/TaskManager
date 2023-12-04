@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
-using Muscler.Infra.DataAccess.Shared;
 using TaskManager.Application.ConfigurationModels;
 using TaskManager.Domain.Entities.Users;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Users;
+using TaskManger.Infra.Repositories.Shared;
 
-namespace TaskManger.Infra.DataAccess
+namespace TaskManger.Infra.Repositories.Users
 {
     public class UserRepository(IOptions<DefaultSettings> settings) : MongoRepository<User>(settings), IUserRepository
     {

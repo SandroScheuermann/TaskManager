@@ -3,9 +3,12 @@
 namespace TaskManager.Application.Requests.Assignments
 {
     public class UpdateAssignmentRequest
-    { 
-        public string? Description { get; set; } 
+    {
+        public required string UserId { get; set; }
+
+        public string? Description { get; set; }
 
         public AssignmentStatusEnum? Status { get; set; }
+
     }
-} 
+}

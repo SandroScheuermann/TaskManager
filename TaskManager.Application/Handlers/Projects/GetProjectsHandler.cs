@@ -2,7 +2,7 @@
 using TaskManager.Application.Commands.Projects;
 using TaskManager.Application.Responses.Projects;
 using TaskManager.Application.ResultHandling;
-using TaskManager.Domain.Repositories;
+using TaskManager.Domain.Repositories.Projects;
 
 namespace TaskManager.Application.Handlers.Projects
 {

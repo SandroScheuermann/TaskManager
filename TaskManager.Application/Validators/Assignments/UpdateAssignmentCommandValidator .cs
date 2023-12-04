@@ -12,6 +12,10 @@ namespace TaskManager.Application.Validators.Assignments
                 .NotEmpty().WithMessage("O ID da tarefa é um campo obrigatório")
                 .MustBeValidObjectId("O ID da tarefa não é um ObjectId válido.");
 
+            RuleFor(command => command.Request.UserId.ToString())
+                .NotEmpty().WithMessage("O ID do usuário é um campo obrigatório")
+                .MustBeValidObjectId("O ID do usuário não é um ObjectId válido.");
+
             RuleFor(command => command.Request.Description)
                 .Length(1, 500).WithMessage("A descrição deve possuir entre 1 e 500 caracteres.");
 
