@@ -42,7 +42,7 @@ namespace TaskManager.API.Mappings
                 error => error switch
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
-                    ProjectDoesntExistError => Results.NotFound(error.Message),
+                    ProjectNotFoundError => Results.NotFound(error.Message),
                     MaximumNumberOfAssignmentsError => Results.BadRequest(error.Message),
                     _ => Results.Problem(error.Message)
                 });
@@ -71,7 +71,7 @@ namespace TaskManager.API.Mappings
                 error => error switch
                 {
                     RequestValidationError => Results.Problem(error.Message),
-                    AssignmentDoesntExistError => Results.NotFound(),
+                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -97,7 +97,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     UnknownError => Results.Problem(error.Message),
-                    AssignmentDoesntExistError => Results.NotFound(),
+                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -123,7 +123,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     UnknownError => Results.Problem(error.Message),
-                    AssignmentDoesntExistError => Results.NotFound(),
+                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }
@@ -149,7 +149,7 @@ namespace TaskManager.API.Mappings
                 {
                     RequestValidationError => Results.BadRequest(error.Message),
                     UnknownError => Results.Problem(error.Message),
-                    AssignmentDoesntExistError => Results.NotFound(),
+                    AssignmentNotFoundError => Results.NotFound(),
                     _ => Results.Problem(error.Message)
                 });
         }

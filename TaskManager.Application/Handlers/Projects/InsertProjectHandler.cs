@@ -45,7 +45,7 @@ namespace TaskManager.Application.Handlers.Projects
 
             if (!userExist)
             {
-                return new UserDoesntExistError();
+                return new UserNotFoundError();
             }
 
             return request;

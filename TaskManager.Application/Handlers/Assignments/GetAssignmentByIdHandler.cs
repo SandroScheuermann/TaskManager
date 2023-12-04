@@ -37,7 +37,7 @@ namespace TaskManager.Application.Handlers.Assignments
         {
             var assignment = AssignmentRepository.GetByIdAsync(command.Id).Result;
 
-            return assignment is not null ? new GetAssignmentByIdResponse { Assignment = assignment } : new AssignmentDoesntExistError(); 
+            return assignment is not null ? new GetAssignmentByIdResponse { Assignment = assignment } : new AssignmentNotFoundError(); 
         }
     }
 }

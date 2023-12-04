@@ -34,6 +34,6 @@ namespace TaskManger.Infra.Repositories.Assignments
             var update = Builders<Assignment>.Update.Push(doc => doc.Comments, comment);
 
             return await Collection.UpdateOneAsync(filter, update);
-        }
+        } 
     }
 }

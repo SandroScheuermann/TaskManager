@@ -42,7 +42,7 @@ namespace TaskManager.Application.Handlers.Users
 
             if (!userExists)
             {
-                return new UserDoesntExistError();
+                return new UserNotFoundError();
             }
 
             return command;

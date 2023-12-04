@@ -43,7 +43,7 @@ namespace TaskManager.Application.Handlers.Projects
 
             if (!projectExists)
             {
-                return new ProjectDoesntExistError();
+                return new ProjectNotFoundError();
             }
 
             return command;

@@ -44,7 +44,7 @@ namespace TaskManager.Application.Handlers.Assignments
 
             if (!projectExist)
             {
-                return new ProjectDoesntExistError();
+                return new ProjectNotFoundError();
             }
 
             return command;

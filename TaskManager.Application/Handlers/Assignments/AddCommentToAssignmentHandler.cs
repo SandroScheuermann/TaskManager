@@ -42,7 +42,7 @@ namespace TaskManager.Application.Handlers.Assignments
 
             if (!assignmentExists)
             {
-                return new AssignmentDoesntExistError();
+                return new AssignmentNotFoundError();
             }
 
             return command;

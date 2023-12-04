@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
 using TaskManager.Application.Commands.Users;
-using TaskManager.Application.Requests.Users;
 using TaskManager.Application.Responses.Users;
 using TaskManager.Application.ResultHandling;
 using TaskManager.Application.ResultHandling.Errors;
@@ -10,21 +9,21 @@ using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Application.Handlers.Users
 {
-    public class InsertUserHandler(IUserRepository userRepository, IValidator<InsertUserRequest> projectValidator)
+    public class InsertUserHandler(IUserRepository userRepository, IValidator<InsertUserCommand> projectValidator)
         : IRequestHandler<InsertUserCommand, Result<InsertUserResponse, Error>>
     {
         public IUserRepository UserRepository { get; set; } = userRepository;
-        public IValidator<InsertUserRequest> UserValidator { get; set; } = projectValidator;
+        public IValidator<InsertUserCommand> UserValidator { get; set; } = projectValidator;
 
         public Task<Result<InsertUserResponse, Error>> Handle(InsertUserCommand command, CancellationToken cancellationToken)
         {
-            var response = ValidateRequest(command.Request)
+            var response = ValidateRequest(command)
                .Bind(CreateAndInsertUser);
 
             return Task.FromResult(response);
         }
 
-        private Result<InsertUserRequest, Error> ValidateRequest(InsertUserRequest request)
+        private Result<InsertUserCommand, Error> ValidateRequest(InsertUserCommand request)
         {
             var validationResult = UserValidator.ValidateAsync(request).Result;
 
@@ -35,13 +34,13 @@ namespace TaskManager.Application.Handlers.Users
 
             return request;
         }
-        private Result<InsertUserResponse, Error> CreateAndInsertUser(InsertUserRequest request)
+        private Result<InsertUserResponse, Error> CreateAndInsertUser(InsertUserCommand command)
         {
             var user = new User()
             {
                 Id = string.Empty,
-                UserName = request.UserName,
-                Role = request.UserRole,
+                UserName = command.Request.UserName,
+                Role = command.Request.UserRole,
             };
 
             UserRepository.InsertAsync(user);

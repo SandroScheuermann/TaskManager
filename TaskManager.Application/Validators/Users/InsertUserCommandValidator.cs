@@ -1,16 +1,16 @@
 ﻿using FluentValidation;
-using TaskManager.Application.Requests.Users;
+using TaskManager.Application.Commands.Users;
 
 namespace TaskManager.Application.Validators.Projects
 {
-    public class InsertUserRequestValidator : AbstractValidator<InsertUserRequest>
+    public class InsertUserCommandValidator : AbstractValidator<InsertUserCommand>
     {
-        public InsertUserRequestValidator()
+        public InsertUserCommandValidator()
         {
-            RuleFor(request => request.UserRole)
+            RuleFor(command => command.Request.UserRole)
                 .IsInEnum().WithMessage("O cargo do usuário não é válido."); 
 
-            RuleFor(request => request.UserName)
+            RuleFor(command => command.Request.UserName)
                 .NotEmpty().WithMessage("O nome do usuário é obrigatório")
                 .Length(1, 30).WithMessage("O nome do usuário deve possuir entre 1 e 30 caracteres.");
         }

@@ -11,7 +11,7 @@ namespace TaskManager.API.DependencyInjection
         {
             builder.Services.AddScoped<IUserRepository, UserRepository>(); 
 
-            builder.Services.AddValidatorsFromAssemblyContaining<InsertUserRequestValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<InsertUserCommandValidator>();
 
         } 
     }

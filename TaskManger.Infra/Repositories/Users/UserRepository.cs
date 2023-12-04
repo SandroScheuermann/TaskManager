@@ -7,6 +7,6 @@ using TaskManger.Infra.Repositories.Shared;
 namespace TaskManger.Infra.Repositories.Users
 {
     public class UserRepository(IOptions<DefaultSettings> settings) : MongoRepository<User>(settings), IUserRepository
-    {
+    {  
     }
 }
