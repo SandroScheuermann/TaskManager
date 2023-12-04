@@ -9,10 +9,13 @@ using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Application.Handlers.Users
 {
-    public class GetUserProjects(IProjectRepository assignmentRepository, IUserRepository userRepository, IValidator<GetUserProjectsCommand> assignmentValidator)
-        : IRequestHandler<GetUserProjectsCommand, Result<GetUserProjectsResponse, Error>>
+    public class GetUserProjectsHandler(
+        IProjectRepository projectRepository,
+        IUserRepository userRepository, 
+        IValidator<GetUserProjectsCommand> assignmentValidator) : 
+        IRequestHandler<GetUserProjectsCommand, Result<GetUserProjectsResponse, Error>>
     {
-        public IProjectRepository ProjectRepository { get; set; } = assignmentRepository;
+        public IProjectRepository ProjectRepository { get; set; } = projectRepository;
         public IUserRepository UserRepository { get; set; } = userRepository;
         public IValidator<GetUserProjectsCommand> ProjectValidator { get; set; } = assignmentValidator;
 

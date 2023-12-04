@@ -6,9 +6,9 @@ using TaskManager.Domain.Repositories.Projects;
 
 namespace TaskManager.Application.Handlers.Projects
 {
-    public class GetProjectsHandler(IProjectRepository assignmentRepository) : IRequestHandler<GetProjectsCommand, Result<GetProjectsResponse, Error>>
+    public class GetProjectsHandler(IProjectRepository projectRepository) : IRequestHandler<GetProjectsCommand, Result<GetProjectsResponse, Error>>
     {
-        public IProjectRepository ProjectRepository { get; set; } = assignmentRepository; 
+        public IProjectRepository ProjectRepository { get; set; } = projectRepository; 
 
         public Task<Result<GetProjectsResponse, Error>> Handle(GetProjectsCommand command, CancellationToken cancellationToken)
         {

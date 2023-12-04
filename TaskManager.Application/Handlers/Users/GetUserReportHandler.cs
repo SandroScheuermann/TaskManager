@@ -10,7 +10,7 @@ using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Application.Handlers.Users
 {
-    public class GetUserReport(
+    public class GetUserReportHandler(
         IAssignmentLogRepository assignmentLogRepository,
         IUserRepository userRepository,
         IValidator<GetUserReportCommand> assignmentValidator) :
@@ -44,7 +44,7 @@ namespace TaskManager.Application.Handlers.Users
         {
             var user = UserRepository.GetByIdAsync(command.ManagerUserId).Result;
 
-            if (user.Id != null)
+            if (user?.Id is not null)
             {
                 return user.Role == UserRoleEnum.Manager ? command : new UserUnathorizedError(user.Id);
             }

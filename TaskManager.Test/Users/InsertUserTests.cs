@@ -10,7 +10,7 @@ using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Test.Users
 {
-    public class InsertUserTest
+    public class InsertUserTests
     {
         private Mock<IUserRepository> _userRepository;
 
@@ -46,13 +46,9 @@ namespace TaskManager.Test.Users
         [Test]
         public async Task Should_Be_Success()
         {
-            var response = await _insertUserHandler.Handle(_insertUserCommand, default);
-
-            response.IsFailure.Should().BeFalse();
+            var response = await _insertUserHandler.Handle(_insertUserCommand, default); 
 
             response.Error.Should().BeNull();
-
-            response.IsSuccess.Should().BeTrue();
         }
 
 
@@ -61,12 +57,7 @@ namespace TaskManager.Test.Users
         {
             _insertUserCommand.Request.UserName = null;
 
-            var response = await _insertUserHandler.Handle(_insertUserCommand, default);
-
-            response.IsFailure.Should().BeTrue();
-            response.IsSuccess.Should().BeFalse();
-
-            response.Error.Should().NotBeNull();
+            var response = await _insertUserHandler.Handle(_insertUserCommand, default);  
 
             response.Error.Should().BeOfType<RequestValidationError>(); 
         }

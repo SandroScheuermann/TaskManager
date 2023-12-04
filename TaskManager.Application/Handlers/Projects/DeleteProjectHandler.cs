@@ -9,8 +9,11 @@ using TaskManager.Domain.Repositories.Projects;
 
 namespace TaskManager.Application.Handlers.Projects
 {
-    public class DeleteProjectHandler(IProjectRepository projectRepository, IAssignmentRepository assignmentRepository, IValidator<DeleteProjectCommand> assignmentValidator)
-        : IRequestHandler<DeleteProjectCommand, Result<DeleteProjectResponse, Error>>
+    public class DeleteProjectHandler(
+        IProjectRepository projectRepository, 
+        IAssignmentRepository assignmentRepository, 
+        IValidator<DeleteProjectCommand> assignmentValidator) : 
+        IRequestHandler<DeleteProjectCommand, Result<DeleteProjectResponse, Error>>
     {
         public IProjectRepository ProjectRepository { get; set; } = projectRepository;
         public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
@@ -63,7 +66,7 @@ namespace TaskManager.Application.Handlers.Projects
         {
             var result = ProjectRepository.DeleteAsync(command.Id).Result;
 
-            return result.DeletedCount > 0 ? new DeleteProjectResponse { } : new UnknownError("Failed to delete the informed project.");
+            return result.DeletedCount > 0 ? new DeleteProjectResponse { } : new FailedToDeleteError();
         }
     }
 }

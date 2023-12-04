@@ -11,12 +11,14 @@ using TaskManager.Domain.Repositories.Users;
 
 namespace TaskManager.Application.Handlers.Projects
 {
-    public class InsertProjectHandler(IProjectRepository projectRepository, IUserRepository userRepository, IAssignmentRepository assignmentRepository, IValidator<InsertProjectRequest> projectValidator)
-        : IRequestHandler<InsertProjectCommand, Result<InsertProjectResponse, Error>>
+    public class InsertProjectHandler(
+        IProjectRepository projectRepository, 
+        IUserRepository userRepository,  
+        IValidator<InsertProjectRequest> projectValidator) :
+        IRequestHandler<InsertProjectCommand, Result<InsertProjectResponse, Error>>
     {
         public IProjectRepository ProjectRepository { get; set; } = projectRepository;
-        public IUserRepository UserRepository { get; set; } = userRepository;
-        public IAssignmentRepository AssignmentRepository { get; set; } = assignmentRepository;
+        public IUserRepository UserRepository { get; set; } = userRepository; 
         public IValidator<InsertProjectRequest> ProjectValidator { get; set; } = projectValidator;
 
         public Task<Result<InsertProjectResponse, Error>> Handle(InsertProjectCommand command, CancellationToken cancellationToken)
