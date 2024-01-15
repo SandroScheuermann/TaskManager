@@ -36,11 +36,4 @@ GET /users/managerUserId/id/assignments/report : Obtém relatório de atividades
 # Histórico de alterações
 
 Toda criação, update, delete e comentário adicionado na tarefa, é guardado em uma tabela do banco, dessa forma temos o tracking completo do documento desde sua criação.
-
-# Questões para a fase de refinamento
-
-- Devemos manter os dados no banco após o "dono" deles ter sido removido? (Ex : Ao remover um projeto, as tarefas linkadas devem permanecer no banco?)
-- Como a aplicação deve agir quando uma tarefa expira?
-- Quando uma tarefa é finalizada, o status dela pode ser alterado novamente?
-- No requisito : "Remoção de tarefas - remover uma tarefa de um projeto", atulamente, a API se comporta deletando a tarefa, tendo em vista que não faz sentido ter uma tarefa sem projeto, seguimos nessa linha, ou é necessário somente remover o link entre as entidades?
  
